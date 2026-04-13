@@ -17,7 +17,7 @@ export default function AdminSidebar() {
     <aside className={styles.sidebar}>
       <nav>
         {navItems.map((item) => {
-          const isActive = pathname === item.href || (item.href !== '/admin/products/add' && pathname.startsWith(item.href) && item.href !== '/admin/products/add');
+          const isActive = pathname === item.href;
           return (
             <Link
               key={item.href}
