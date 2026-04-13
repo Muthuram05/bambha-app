@@ -227,6 +227,189 @@
   display: inline-block;
 }
 
+.noReviews {
+  font-size: 0.9rem;
+  color: var(--gray);
+  padding: 32px 0;
+}
+
+.skeletonCard {
+  height: 160px;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmerR 1.4s infinite;
+}
+
+@keyframes shimmerR {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Modal */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.modal {
+  background: white;
+  border-radius: 8px;
+  padding: 32px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.modalHeader h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--black);
+}
+
+.modalClose {
+  background: none;
+  border: none;
+  color: var(--gray);
+  cursor: pointer;
+  padding: 4px;
+  line-height: 0;
+}
+
+.modalClose:hover {
+  color: var(--black);
+}
+
+.reviewForm {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.formLabel {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--black);
+}
+
+.starPicker {
+  display: flex;
+  gap: 4px;
+}
+
+.starPickerBtn {
+  font-size: 1.8rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  transition: transform 0.1s;
+}
+
+.starPickerBtn:hover {
+  transform: scale(1.15);
+}
+
+.modalInput,
+.modalTextarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d8d8d8;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-family: var(--font);
+  color: var(--black);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.modalInput:focus,
+.modalTextarea:focus {
+  border-color: var(--green);
+}
+
+.modalTextarea {
+  resize: vertical;
+}
+
+.formError {
+  font-size: 0.85rem;
+  color: #c0392b;
+  background: #fdf0ef;
+  border-radius: 4px;
+  padding: 8px 12px;
+}
+
+.formSuccess {
+  font-size: 0.95rem;
+  color: var(--green);
+  text-align: center;
+  padding: 24px 0;
+}
+
+.modalActions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 4px;
+}
+
+.cancelBtn {
+  padding: 10px 20px;
+  border: 1.5px solid var(--gray-border);
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  background: white;
+  color: var(--black);
+  cursor: pointer;
+}
+
+.cancelBtn:hover {
+  background: var(--gray-light);
+}
+
+.submitBtn {
+  padding: 10px 24px;
+  background: var(--green-btn);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.submitBtn:hover {
+  background: var(--green-dark);
+}
+
+.submitBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 @media (max-width: 768px) {
   .summary {
     flex-direction: column;

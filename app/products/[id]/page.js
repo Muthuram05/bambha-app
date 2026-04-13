@@ -1,46 +1,85 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect, use } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import Navbar from '@/components/Navbar/Navbar';
 import Footer from '@/components/Footer/Footer';
 import ReviewSection from '@/components/ReviewSection/ReviewSection';
 import { useCart } from '@/context/CartContext';
 import styles from './product.module.css';
 
-// Mock product data - replace with Supabase fetch by id
-const productData = {
-  id: 1,
-  name: 'Bambha | Monkfruit Sweetener Powder 100gms | Zero-Calorie Sugar Substitute | 1:1 Sugar Replacer for Cooking & Baking | keto & Diabetic Friendly(100gms)',
-  images: [
-    '/images/product-main.jpg',
-    '/images/product-2.jpg',
-    '/images/product-3.jpg',
-    '/images/product-4.jpg',
-    '/images/product-5.jpg',
-  ],
-  rating: 4.96,
-  reviews: 53,
-  weights: ['100gm', '200gm', '250gm', '400gm', '500gm'],
-  prices: { '100gm': 159, '200gm': 199, '250gm': 249, '400gm': 399, '500gm': 499 },
-  originalPrices: { '100gm': 300, '200gm': 380, '250gm': 450, '400gm': 700, '500gm': 850 },
-  delivery: '02 January and 04 January',
-  about: 'Our flagship Monkfruit Sweetener is plant-based, contains no artificial preservatives or fillers. 150x sweeter than sugar, zero calories, perfect for all recipes.',
-  ratingBreakdown: { 5: 52, 4: 1, 3: 0, 2: 0, 1: 0 },
-};
-
 export default function ProductPage({ params }) {
-  const [selectedWeight, setSelectedWeight] = useState('100gm');
+  const { id } = use(params);
+  const router = useRouter();
+  const { addToCart } = useCart();
+
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [notFound, setNotFound] = useState(false);
+
+  const [selectedWeight, setSelectedWeight] = useState('');
   const [qty, setQty] = useState(1);
   const [activeImg, setActiveImg] = useState(0);
   const [aboutOpen, setAboutOpen] = useState(false);
   const [returnsOpen, setReturnsOpen] = useState(false);
-  const { addToCart } = useCart();
 
-  const price = productData.prices[selectedWeight];
-  const original = productData.originalPrices[selectedWeight];
+  useEffect(() => {
+    fetch(`/api/products/${id}`)
+      .then(res => {
+        if (res.status === 404) { setNotFound(true); return null; }
+        return res.json();
+      })
+      .then(json => {
+        if (!json) return;
+        setProduct(json.data);
+        if (json.data?.weight_options?.length) setSelectedWeight(json.data.weight_options[0]);
+      })
+      .finally(() => setLoading(false));
+  }, [id]);
+
+  if (loading) {
+    return (
+      <>
+        <Navbar />
+        <main className={styles.main}>
+          <div className={styles.container}>
+            <div className={styles.skeletonLayout}>
+              <div className={styles.skeletonImg} />
+              <div className={styles.skeletonInfo}>
+                <div className={styles.skeletonLine} style={{ width: '80%', height: 20 }} />
+                <div className={styles.skeletonLine} style={{ width: '40%', height: 16 }} />
+                <div className={styles.skeletonLine} style={{ width: '30%', height: 32 }} />
+              </div>
+            </div>
+          </div>
+        </main>
+        <Footer />
+      </>
+    );
+  }
+
+  if (notFound || !product) {
+    return (
+      <>
+        <Navbar />
+        <main className={styles.main}>
+          <div className={styles.container}>
+            <p style={{ padding: '60px 0', color: 'var(--gray)' }}>Product not found.</p>
+          </div>
+        </main>
+        <Footer />
+      </>
+    );
+  }
+
+  const images = [product.main_image, ...(product.gallery_images || [])].filter(Boolean);
+  const weights = product.weight_options || [];
+  const avgRating = product.avg_rating ? Number(product.avg_rating) : 0;
+  const reviewCount = product.review_count || 0;
+  const filledStars = Math.round(avgRating);
 
   const handleAddToCart = () => {
-    addToCart(productData, selectedWeight, price, qty);
+    addToCart(product, selectedWeight, product.price, qty);
   };
 
   return (
@@ -51,13 +90,13 @@ export default function ProductPage({ params }) {
           <div className={styles.breadcrumb}>
             <Link href="/">Home</Link> &rsaquo;
             <Link href="/products"> Our Products</Link> &rsaquo;
-            <span> Monk Fruit Sweetener</span>
+            <span> {product.name}</span>
           </div>
 
           <div className={styles.productLayout}>
             {/* Thumbnails */}
             <div className={styles.thumbnails}>
-              {productData.images.map((img, i) => (
+              {images.map((img, i) => (
                 <button
                   key={i}
                   className={`${styles.thumb} ${activeImg === i ? styles.thumbActive : ''}`}
@@ -70,41 +109,51 @@ export default function ProductPage({ params }) {
 
             {/* Main Image */}
             <div className={styles.mainImg}>
-              <img src={productData.images[activeImg]} alt="Product" />
+              {images.length > 0 ? (
+                <img src={images[activeImg]} alt={product.name} />
+              ) : (
+                <img src="/images/logo.png" alt={product.name} />
+              )}
             </div>
 
             {/* Product Info */}
             <div className={styles.info}>
-              <h1 className={styles.title}>{productData.name}</h1>
+              <h1 className={styles.title}>{product.name}</h1>
 
               <div className={styles.ratingRow}>
-                <span className={styles.stars}>{'★'.repeat(5)}</span>
-                <span className={styles.reviewCount}>{productData.reviews} reviews</span>
+                <span className={styles.stars}>
+                  {filledStars > 0 ? '★'.repeat(filledStars) + '☆'.repeat(5 - filledStars) : '☆☆☆☆☆'}
+                </span>
+                <span className={styles.reviewCount}>
+                  {reviewCount > 0 ? `${avgRating.toFixed(2)} · ${reviewCount} reviews` : 'No reviews yet'}
+                </span>
               </div>
 
               <div className={styles.priceRow}>
-                <span className={styles.originalPrice}>Rs.{original}</span>
-                <span className={styles.price}>Rs.{price}</span>
+                {product.mrp && product.mrp > product.price && (
+                  <span className={styles.originalPrice}>Rs.{product.mrp}</span>
+                )}
+                <span className={styles.price}>Rs.{product.price}</span>
               </div>
 
-              <p className={styles.delivery}>
-                📦 Estimated delivery between <strong>{productData.delivery}</strong>
-              </p>
+              <p className={styles.delivery}>📦 Usually ships in 2–4 business days</p>
 
-              <div className={styles.weightSection}>
-                <p className={styles.label}>weight</p>
-                <div className={styles.weightOptions}>
-                  {productData.weights.map((w) => (
-                    <button
-                      key={w}
-                      className={`${styles.weightBtn} ${selectedWeight === w ? styles.weightActive : ''}`}
-                      onClick={() => setSelectedWeight(w)}
-                    >
-                      {w}
-                    </button>
-                  ))}
+              {weights.length > 0 && (
+                <div className={styles.weightSection}>
+                  <p className={styles.label}>Weight</p>
+                  <div className={styles.weightOptions}>
+                    {weights.map((w) => (
+                      <button
+                        key={w}
+                        className={`${styles.weightBtn} ${selectedWeight === w ? styles.weightActive : ''}`}
+                        onClick={() => setSelectedWeight(w)}
+                      >
+                        {w}
+                      </button>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
 
               <div className={styles.qtySection}>
                 <p className={styles.label}>Quantity</p>
@@ -118,22 +167,22 @@ export default function ProductPage({ params }) {
               <button className={styles.addCartBtn} onClick={handleAddToCart}>
                 Add to cart
               </button>
-              <button className={styles.buyNowBtn}>
-                Buy it now
-              </button>
+              <button className={styles.buyNowBtn}>Buy it now</button>
 
-              {/* Accordion */}
-              <div className={styles.accordion}>
-                <button className={styles.accordionBtn} onClick={() => setAboutOpen(!aboutOpen)}>
-                  <span>About this Item</span>
-                  <span>{aboutOpen ? '∧' : '∨'}</span>
-                </button>
-                {aboutOpen && (
-                  <div className={styles.accordionContent}>
-                    <p>{productData.about}</p>
-                  </div>
-                )}
-              </div>
+              {product.description && (
+                <div className={styles.accordion}>
+                  <button className={styles.accordionBtn} onClick={() => setAboutOpen(!aboutOpen)}>
+                    <span>About this Item</span>
+                    <span>{aboutOpen ? '∧' : '∨'}</span>
+                  </button>
+                  {aboutOpen && (
+                    <div className={styles.accordionContent}>
+                      <p>{product.description}</p>
+                    </div>
+                  )}
+                </div>
+              )}
+
               <div className={styles.accordion}>
                 <button className={styles.accordionBtn} onClick={() => setReturnsOpen(!returnsOpen)}>
                   <span>🔄 Returns + Exchanges</span>
@@ -149,7 +198,11 @@ export default function ProductPage({ params }) {
           </div>
 
           {/* Reviews */}
-          <ReviewSection product={productData} />
+          <ReviewSection
+            productId={product.id}
+            avgRating={avgRating}
+            reviewCount={reviewCount}
+          />
         </div>
       </main>
       <Footer />

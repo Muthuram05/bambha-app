@@ -91,6 +91,20 @@
   background: var(--green-dark);
 }
 
+.sendBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.error {
+  font-size: 0.875rem;
+  color: #c0392b;
+  background: #fdf0ef;
+  border-radius: 4px;
+  padding: 8px 12px;
+  margin-bottom: 16px;
+}
+
 /* Info */
 .infoSection {
   padding-top: 4px;

@@ -1,12 +1,23 @@
+'use client';
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import AdminSidebar from '@/components/AdminSidebar/AdminSidebar';
+import { useAuth } from '@/context/AuthContext';
 import styles from './admin.module.css';
 
-export const metadata = {
-  title: 'Admin Panel - BamBha',
-};
-
 export default function AdminLayout({ children }) {
+  const { user, isAdmin, loading } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!loading && (!user || !isAdmin)) {
+      router.replace('/');
+    }
+  }, [user, isAdmin, loading]);
+
+  if (loading || !user || !isAdmin) return null;
+
   return (
     <div className={styles.wrapper}>
       <header className={styles.header}>

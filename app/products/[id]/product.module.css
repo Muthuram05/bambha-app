@@ -253,6 +253,41 @@
   line-height: 1.7;
 }
 
+/* Skeleton loading */
+.skeletonLayout {
+  display: grid;
+  grid-template-columns: 500px 1fr;
+  gap: 48px;
+  margin-bottom: 80px;
+}
+
+.skeletonImg {
+  height: 480px;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmerP 1.4s infinite;
+}
+
+.skeletonInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 16px;
+}
+
+.skeletonLine {
+  border-radius: 4px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmerP 1.4s infinite;
+}
+
+@keyframes shimmerP {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
 @media (max-width: 900px) {
   .productLayout {
     grid-template-columns: 70px 1fr;

@@ -2,19 +2,40 @@
 import { useState } from 'react';
 import Navbar from '@/components/Navbar/Navbar';
 import Footer from '@/components/Footer/Footer';
+import { createClient } from '@/utils/supabase/client';
 import styles from './contact.module.css';
+
+const supabase = createClient();
 
 export default function ContactPage() {
   const [form, setForm] = useState({ firstName: '', email: '', phone: '', message: '' });
   const [sent, setSent] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const handleChange = (e) => {
     setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Contact form:', form);
+    setLoading(true);
+    setError('');
+
+    const { error } = await supabase.from('contacts').insert({
+      first_name: form.firstName,
+      email: form.email,
+      phone: form.phone || null,
+      message: form.message,
+    });
+
+    setLoading(false);
+
+    if (error) {
+      setError('Failed to send message. Please try again.');
+      return;
+    }
+
     setSent(true);
     setForm({ firstName: '', email: '', phone: '', message: '' });
     setTimeout(() => setSent(false), 4000);
@@ -31,6 +52,7 @@ export default function ContactPage() {
           <div className={styles.formSection}>
             <h2 className={styles.sectionTitle}>Questions? Send us an email</h2>
             {sent && <p className={styles.success}>Message sent! We'll get back to you soon.</p>}
+            {error && <p className={styles.error}>{error}</p>}
             <form className={styles.form} onSubmit={handleSubmit}>
               <input
                 className={styles.input}
@@ -68,7 +90,9 @@ export default function ContactPage() {
                 required
               />
               <div className={styles.btnRow}>
-                <button type="submit" className={styles.sendBtn}>Send</button>
+                <button type="submit" className={styles.sendBtn} disabled={loading}>
+                  {loading ? 'Sending…' : 'Send'}
+                </button>
               </div>
             </form>
           </div>

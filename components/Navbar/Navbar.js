@@ -7,7 +7,7 @@ import styles from './Navbar.module.css';
 
 export default function Navbar() {
   const { totalItems } = useCart();
-  const { user } = useAuth();
+  const { user, isAdmin } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState('');
@@ -39,7 +39,7 @@ export default function Navbar() {
             <li><Link href="/" className={styles.navLink}>Home</Link></li>
             <li><Link href="/products" className={styles.navLink}>Product</Link></li>
             <li><Link href="/contact" className={styles.navLink}>Contact us</Link></li>
-            <li><Link href="/admin" className={styles.navLink}>Admin Panel</Link></li>
+            {isAdmin && <li><Link href="/admin" className={styles.navLink}>Admin Panel</Link></li>}
           </ul>
 
           <div className={styles.icons}>

@@ -48,7 +48,14 @@ export default function ProductsPage() {
                   <div className={styles.info}>
                     <p className={styles.category}>{p.category || 'Natural'}</p>
                     <h3 className={styles.name}>{p.name}</h3>
-                    <div className={styles.stars}>{'★'.repeat(5)}</div>
+                    <div className={styles.stars}>
+                      {p.avg_rating && p.avg_rating > 0
+                        ? '★'.repeat(Math.round(p.avg_rating)) + '☆'.repeat(5 - Math.round(p.avg_rating))
+                        : '☆☆☆☆☆'}
+                    </div>
+                    {p.review_count > 0 && (
+                      <p className={styles.ratingText}>{Number(p.avg_rating).toFixed(1)} ({p.review_count})</p>
+                    )}
                     <div className={styles.pricing}>
                       <span className={styles.price}>Rs. {p.price}</span>
                       {p.mrp && p.mrp > p.price && (
