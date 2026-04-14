@@ -1,95 +1,93 @@
 .footer {
-  background: var(--green-dark);
-  color: #e8f0d8;
+  background: #eef5d6;
+  padding: 60px 0 0;
 }
 
 .inner {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 60px 24px 40px;
+  padding: 0 48px 48px;
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 48px;
+  align-items: start;
 }
 
-.logoText {
-  font-size: 1.8rem;
-  font-weight: 800;
-  color: #fff;
+/* Logo */
+.brand {
+  display: flex;
+  align-items: flex-start;
 }
 
-.logoB {
-  color: #a8d06a;
+.logo {
+  width: 180px;
+  height: auto;
+  object-fit: contain;
 }
 
-.tagline {
-  font-size: 0.75rem;
-  letter-spacing: 0.1em;
-  color: #a8d06a;
-  margin-top: 2px;
-  text-transform: uppercase;
+/* Column titles */
+.colTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #4a6741;
+  margin-bottom: 20px;
 }
 
-.desc {
-  font-size: 0.875rem;
-  color: #b8c8a0;
-  margin-top: 12px;
-  line-height: 1.6;
-}
-
-.links h4,
-.contact h4 {
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: #fff;
-  margin-bottom: 16px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
+/* Explore links */
 .links ul {
   list-style: none;
+  padding: 0;
+  margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 14px;
 }
 
 .links ul li a {
-  font-size: 0.875rem;
-  color: #b8c8a0;
+  font-size: 0.9rem;
+  color: #5a7050;
+  text-decoration: none;
   transition: color 0.2s;
 }
 
 .links ul li a:hover {
-  color: #fff;
+  color: #2e5c22;
+}
+
+/* Contact */
+.contact {
+  display: flex;
+  flex-direction: column;
 }
 
 .contact p {
-  font-size: 0.875rem;
-  color: #b8c8a0;
-  margin-bottom: 6px;
+  font-size: 0.9rem;
+  color: #5a7050;
+  margin-bottom: 10px;
+  line-height: 1.5;
 }
 
+.contactLabel {
+  font-weight: 600;
+  color: #4a6741;
+}
+
+/* Bottom bar */
 .bottom {
-  border-top: 1px solid rgba(255,255,255,0.1);
-  padding: 20px 24px;
+  border-top: 1px solid #c8dba0;
   text-align: center;
+  padding: 20px 24px;
 }
 
 .bottom p {
-  font-size: 0.8rem;
-  color: #7a9060;
+  font-size: 0.875rem;
+  color: #6b8c5a;
 }
 
 @media (max-width: 768px) {
   .inner {
-    grid-template-columns: 1fr 1fr;
-    gap: 32px;
-  }
-}
-
-@media (max-width: 480px) {
-  .inner {
     grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 0 24px 40px;
   }
 }
