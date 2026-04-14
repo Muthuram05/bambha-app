@@ -2,6 +2,13 @@
   position: relative;
   width: 100%;
   overflow: hidden;
+  min-height: clamp(200px, 40vw, 600px);
+}
+
+.heroSkeleton {
+  width: 100%;
+  height: clamp(200px, 40vw, 600px);
+  background: #f0f0f0;
 }
 
 .track {
