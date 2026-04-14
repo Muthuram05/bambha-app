@@ -1,109 +1,329 @@
 .main {
   min-height: calc(100vh - 72px);
-  background: #f2f2f2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 40px 24px;
+  background: #f5f5f5;
+  padding: 40px 24px 80px;
 }
 
-.card {
-  background: #fff;
-  border-radius: 12px;
-  padding: 40px 36px;
-  width: 100%;
-  max-width: 440px;
+.container {
+  max-width: 760px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
+  gap: 24px;
+}
+
+/* Profile Card */
+.profileCard {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px 28px;
+  display: flex;
   align-items: center;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  gap: 20px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
 }
 
 .avatar {
-  width: 72px;
-  height: 72px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   background: linear-gradient(135deg, #6b8c3a, #3d5a1e);
   color: #fff;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 16px;
+  flex-shrink: 0;
+}
+
+.profileInfo {
+  flex: 1;
 }
 
 .name {
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   font-weight: 700;
   color: var(--black);
-  margin-bottom: 4px;
+  margin-bottom: 2px;
 }
 
 .email {
-  font-size: 0.88rem;
+  font-size: 0.875rem;
   color: var(--gray);
-  margin-bottom: 0;
+  margin-bottom: 6px;
 }
 
-.divider {
-  width: 100%;
-  height: 1px;
-  background: #ebebeb;
-  margin: 24px 0;
-}
-
-.infoGrid {
-  width: 100%;
+.meta {
   display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin-bottom: 28px;
-}
-
-.infoItem {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
-  gap: 16px;
-}
-
-.infoLabel {
-  font-size: 0.85rem;
+  gap: 6px;
+  font-size: 0.8rem;
   color: var(--gray);
-  font-weight: 500;
 }
 
-.infoValue {
-  font-size: 0.88rem;
-  color: var(--black);
-  font-weight: 500;
-  text-align: right;
+.dot {
+  color: #ccc;
 }
 
-.confirmed {
+.verified {
   color: #2e7d32;
+  font-weight: 600;
 }
 
-.pending {
+.unverified {
   color: #e65100;
+  font-weight: 600;
 }
 
 .signOutBtn {
-  width: 100%;
   background: transparent;
   border: 1.5px solid #ddd;
   border-radius: 6px;
-  padding: 12px;
-  font-size: 0.92rem;
+  padding: 9px 20px;
+  font-size: 0.875rem;
   font-weight: 600;
   font-family: var(--font);
   color: #c0392b;
   cursor: pointer;
   transition: background 0.2s, border-color 0.2s;
+  flex-shrink: 0;
 }
 
 .signOutBtn:hover {
   background: #fdf0ef;
   border-color: #c0392b;
+}
+
+/* Orders Section */
+.ordersSection {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px 28px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+}
+
+.sectionTitle {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--black);
+  margin-bottom: 20px;
+}
+
+.skeletonList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.skeletonRow {
+  height: 64px;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e8e8e8 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.emptyOrders {
+  text-align: center;
+  padding: 40px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  color: var(--gray);
+  font-size: 0.9rem;
+}
+
+.orderList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Order Card */
+.orderCard {
+  border: 1px solid var(--gray-border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.orderHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  cursor: pointer;
+  transition: background 0.15s;
+  gap: 12px;
+}
+
+.orderHeader:hover {
+  background: #fafafa;
+}
+
+.orderMeta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.orderId {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--black);
+}
+
+.orderDate {
+  font-size: 0.8rem;
+  color: var(--gray);
+}
+
+.orderRight {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.orderAmount {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--black);
+}
+
+.statusBadge {
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.chevron {
+  font-size: 0.65rem;
+  color: var(--gray);
+}
+
+/* Order Detail */
+.orderDetail {
+  border-top: 1px solid var(--gray-border);
+  background: #fafafa;
+}
+
+.orderItems {
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.orderItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.itemImg {
+  width: 48px;
+  height: 48px;
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--gray-light);
+  flex-shrink: 0;
+  border: 1px solid var(--gray-border);
+}
+
+.itemImg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.itemInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.itemName {
+  font-size: 0.825rem;
+  font-weight: 600;
+  color: var(--black);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.itemMeta {
+  font-size: 0.775rem;
+  color: var(--gray);
+  margin-top: 2px;
+}
+
+.itemPrice {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--black);
+  flex-shrink: 0;
+}
+
+.orderFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 12px 20px 16px;
+  border-top: 1px solid var(--gray-border);
+  gap: 16px;
+}
+
+.shippingInfo p:first-child {
+  font-size: 0.75rem;
+  color: var(--gray);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 2px;
+}
+
+.shippingInfo p:last-child {
+  font-size: 0.8rem;
+  color: var(--black);
+}
+
+.totalInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.totalInfo span {
+  font-size: 0.75rem;
+  color: var(--gray);
+}
+
+.totalInfo strong {
+  font-size: 0.95rem;
+  color: var(--black);
+}
+
+@media (max-width: 600px) {
+  .profileCard {
+    flex-wrap: wrap;
+  }
+
+  .signOutBtn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .orderMeta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
 }

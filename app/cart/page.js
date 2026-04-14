@@ -3,10 +3,12 @@ import Navbar from '@/components/Navbar/Navbar';
 import Footer from '@/components/Footer/Footer';
 import { useCart } from '@/context/CartContext';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import styles from './cart.module.css';
 
 export default function CartPage() {
   const { cart, updateQty, removeFromCart, totalPrice } = useCart();
+  const router = useRouter();
 
   if (cart.length === 0) {
     return (
@@ -34,7 +36,7 @@ export default function CartPage() {
               {cart.map((item) => (
                 <div key={`${item.id}-${item.weight}`} className={styles.item}>
                   <div className={styles.itemImg}>
-                    <img src={item.images?.[0] || '/images/product-main.jpg'} alt={item.name} />
+                    <img src={item.main_image || '/images/logo.png'} alt={item.name} onError={e => e.target.src = '/images/logo.png'} />
                   </div>
                   <div className={styles.itemInfo}>
                     <p className={styles.itemName}>{item.name}</p>
@@ -70,7 +72,9 @@ export default function CartPage() {
                 <span>Total</span>
                 <span>Rs. {totalPrice}</span>
               </div>
-              <button className={styles.checkoutBtn}>Proceed to Checkout</button>
+              <button className={styles.checkoutBtn} onClick={() => router.push('/checkout')}>
+                Proceed to Checkout
+              </button>
             </div>
           </div>
         </div>
