@@ -4,48 +4,52 @@ import styles from './KeyFeatures.module.css';
 
 const features = [
   {
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-        <path d="M12 2a10 10 0 0 1 10 10c0 4-2.5 7.5-6 9.5"/>
-        <path d="M12 2C8 2 4 5 4 9c0 2.5 1.5 5 4 7"/>
-        <circle cx="12" cy="12" r="3"/>
-      </svg>
-    ),
     title: 'Natural Ingredients',
-    desc: 'Our flagship Monkfruit Sweetener is 100% plant-based and contains no artificial preservatives or fillers.',
+    desc: 'Our flagship Monkfruit Sweetener is plant-based and contains no artificial preservatives or fillers.',
+    image: null,
     color: '#eef5e6',
   },
   {
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-        <path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/>
-      </svg>
-    ),
+    title: null,
+    desc: null,
+    image: 'https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?w=600&q=80',
+    alt: 'Monkfruit bowl with fresh ingredients',
+  },
+  {
     title: 'Versatility',
-    desc: "BamBha's formula stays stable under heat — perfect for baking, cooking, and beverages without any compromise.",
-    color: '#e8f4fd',
+    desc: 'Unlike many sweeteners, BamBha\'s formula remains stable under heat, making them suitable for baking and cooking in addition to beverages.',
+    image: null,
+    color: '#eef5e6',
   },
   {
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-        <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
-      </svg>
-    ),
+    title: null,
+    desc: null,
+    image: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=80',
+    alt: 'Coffee beverage with sweetener',
+  },
+  {
+    title: null,
+    desc: null,
+    image: 'https://images.unsplash.com/photo-1581579438747-1dc8d17bbce4?w=600&q=80',
+    alt: 'Family using BamBha',
+  },
+  {
     title: 'Health Focused',
-    desc: 'Diabetic-friendly, keto-friendly, and safe for all age groups with zero glycemic impact on blood sugar levels.',
-    color: '#fdf3e8',
+    desc: 'The products are marketed as diabetic-friendly, keto-friendly, and safe for all age groups due to having a zero glycemic impact.',
+    image: null,
+    color: '#eef5e6',
   },
   {
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-        <circle cx="12" cy="12" r="10"/>
-        <path d="M8 12.5s1.5 2 4 2 4-2 4-2"/>
-        <path d="M9 9h.01M15 9h.01"/>
-      </svg>
-    ),
+    title: null,
+    desc: null,
+    image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80',
+    alt: 'Cooking with BamBha sweetener',
+  },
+  {
     title: 'Taste Profile',
-    desc: 'No bitter aftertaste. BamBha delivers the pure, clean sweetness of real sugar — 150x sweeter with zero calories.',
-    color: '#f3e8fd',
+    desc: 'Unlike many sweeteners, BamBha\'s formula remains stable under heat, making them suitable for baking and cooking in addition to beverages.',
+    image: null,
+    color: '#eef5e6',
   },
 ];
 
@@ -60,25 +64,30 @@ export default function KeyFeatures() {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <span className={styles.eyebrow}>What Sets Us Apart</span>
-          <h2 className={styles.title}>Key Product <span>Features</span></h2>
+          <h2 className={styles.title}>KEY PRODUCT <span>FEATURES</span></h2>
+          <div className={styles.titleLine} />
         </motion.div>
 
-        <div className={styles.grid}>
+        <div className={styles.bento}>
           {features.map((f, i) => (
             <motion.div
-              key={f.title}
-              className={styles.card}
-              initial={{ opacity: 0, y: 30 }}
+              key={i}
+              className={`${styles.cell} ${f.image ? styles.imageCell : styles.textCell}`}
+              initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
+              transition={{ duration: 0.45, delay: (i % 4) * 0.08 }}
+              style={!f.image ? { background: f.color } : {}}
             >
-              <div className={styles.iconWrap} style={{ background: f.color }}>
-                <span className={styles.iconInner}>{f.icon}</span>
-              </div>
-              <h3 className={styles.cardTitle}>{f.title}</h3>
-              <p className={styles.cardDesc}>{f.desc}</p>
+              {f.image ? (
+                /* eslint-disable-next-line @next/next/no-img-element */
+                <img src={f.image} alt={f.alt} className={styles.cellImg} />
+              ) : (
+                <div className={styles.textContent}>
+                  <h3 className={styles.cellTitle}>{f.title} <span className={styles.dot}>›</span></h3>
+                  <p className={styles.cellDesc}>{f.desc}</p>
+                </div>
+              )}
             </motion.div>
           ))}
         </div>
