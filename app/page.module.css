@@ -140,3 +140,7 @@ a.secondary {
     --button-secondary-border: #1a1a1a;
   }
 }
+
+.mainContainer{
+  padding-inline: 60px ;
+}

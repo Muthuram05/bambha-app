@@ -25,7 +25,7 @@ const cards = [
     ),
   },
   {
-    href: '/privacy',
+    href: '/privacy-policy',
     label: 'Privacy policy',
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -36,7 +36,7 @@ const cards = [
     ),
   },
   {
-    href: '/returns',
+    href: '/return-policy',
     label: 'Return and Refund policy',
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -46,7 +46,7 @@ const cards = [
     ),
   },
   {
-    href: '/shipping',
+    href: '/shipping-policy',
     label: 'Shipping, Refund and cancellation policy',
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
