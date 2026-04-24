@@ -4,14 +4,12 @@
 }
 
 .inner {
-  max-width: 860px;
   margin: 0 auto;
-  padding: 0 24px;
 }
 
 .heading {
-  font-size: clamp(2rem, 5vw, 3rem);
-  font-weight: 900;
+  font-size: 75px;
+  font-weight: 500;
   color: #4a8c3f;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -24,17 +22,17 @@
 }
 
 .sub {
-  font-size: 1rem;
-  font-weight: 700;
+  font-size: 28px;
+  font-weight: 600;
   color: #1a1a1a;
   margin-bottom: 20px;
 }
 
 .desc {
-  font-size: 0.92rem;
+  font-size: 28px;
   color: #555;
-  line-height: 1.85;
   margin-bottom: 28px;
+  font-weight: 500;
 }
 
 .block {
@@ -42,25 +40,24 @@
 }
 
 .blockTitle {
-  font-size: 0.92rem;
-  font-weight: 800;
+  font-size: 32px;
+  font-weight: 600;
   color: #1a1a1a;
   letter-spacing: 0.04em;
   margin-bottom: 4px;
 }
 
 .blockText {
-  font-size: 0.9rem;
+  font-size: 28px;
   color: #555;
-  line-height: 1.8;
+  font-weight: 500;
 }
 
 .availability {
   margin-top: 28px;
-  font-size: 0.9rem;
+  font-size: 28px;
   color: #4a8c3f;
-  font-weight: 500;
-  line-height: 1.7;
+  font-weight: 600;
 }
 
 @media (max-width: 600px) {

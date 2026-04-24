@@ -1,5 +1,6 @@
 'use client';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useState, useEffect, useRef } from 'react';
 import { useCart } from '@/context/CartContext';
 import { useAuth } from '@/context/AuthContext';
@@ -8,6 +9,7 @@ import styles from './Navbar.module.css';
 export default function Navbar() {
   const { totalItems } = useCart();
   const { user, isAdmin } = useAuth();
+  const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState('');
@@ -36,10 +38,10 @@ export default function Navbar() {
           </Link>
 
           <ul className={`${styles.navLinks} ${menuOpen ? styles.open : ''}`}>
-            <li><Link href="/" className={styles.navLink}>Home</Link></li>
-            <li><Link href="/products" className={styles.navLink}>Product</Link></li>
-            <li><Link href="/contact" className={styles.navLink}>Contact us</Link></li>
-            {isAdmin && <li><Link href="/admin" className={styles.navLink}>Admin Panel</Link></li>}
+            <li><Link href="/" className={`${styles.navLink} ${pathname === '/' ? styles.active : ''}`}>Home</Link></li>
+            <li><Link href="/products" className={`${styles.navLink} ${pathname.startsWith('/products') ? styles.active : ''}`}>Product</Link></li>
+            <li><Link href="/contact" className={`${styles.navLink} ${pathname === '/contact' ? styles.active : ''}`}>Contact us</Link></li>
+            {isAdmin && <li><Link href="/admin" className={`${styles.navLink} ${pathname.startsWith('/admin') ? styles.active : ''}`}>Admin Panel</Link></li>}
           </ul>
 
           <div className={styles.icons}>

@@ -12,7 +12,7 @@ const features = [
   {
     title: null,
     desc: null,
-    image: 'https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?w=600&q=80',
+    image: './images/feature1.jpg',
     alt: 'Monkfruit bowl with fresh ingredients',
   },
   {
@@ -24,13 +24,13 @@ const features = [
   {
     title: null,
     desc: null,
-    image: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=80',
+    image: './images/feature2.jpg',
     alt: 'Coffee beverage with sweetener',
   },
   {
     title: null,
     desc: null,
-    image: 'https://images.unsplash.com/photo-1581579438747-1dc8d17bbce4?w=600&q=80',
+    image: './images/feature3.jpg',
     alt: 'Family using BamBha',
   },
   {
@@ -42,7 +42,7 @@ const features = [
   {
     title: null,
     desc: null,
-    image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80',
+    image: './images/feature4.jpg',
     alt: 'Cooking with BamBha sweetener',
   },
   {
@@ -65,7 +65,7 @@ export default function KeyFeatures() {
           transition={{ duration: 0.5 }}
         >
           <h2 className={styles.title}>KEY PRODUCT <span>FEATURES</span></h2>
-          <div className={styles.titleLine} />
+          <img src="/images/bamboo.png" alt="" className={styles.titleLine} aria-hidden="true" />
         </motion.div>
 
         <div className={styles.bento}>
@@ -84,7 +84,7 @@ export default function KeyFeatures() {
                 <img src={f.image} alt={f.alt} className={styles.cellImg} />
               ) : (
                 <div className={styles.textContent}>
-                  <h3 className={styles.cellTitle}>{f.title} <span className={styles.dot}>›</span></h3>
+                  <h3 className={styles.cellTitle}>{f.title} <span className={styles.dot}>:</span></h3>
                   <p className={styles.cellDesc}>{f.desc}</p>
                 </div>
               )}
