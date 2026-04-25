@@ -39,7 +39,13 @@ export default function WhyChoose() {
           </div>
         </motion.div>
 
-        <div className={styles.content}>
+        <motion.div
+          className={styles.content}
+          initial={{ opacity: 0, y: 80 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+        >
           <div className={styles.wrapper}>
             {/* Top Left Image */}
             <div className={styles.imageTopLeft}>
@@ -64,8 +70,14 @@ export default function WhyChoose() {
               <img src="/images/fruit.png" alt="decoration" />
             </div>
           </div>
-        </div>
-        <div className={styles.rightContent}>
+        </motion.div>
+        <motion.div
+          className={styles.rightContent}
+          initial={{ opacity: 0, y: 80 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+        >
           <div className={styles.rightWrapper}>
             {/* Top Left Image */}
             <div className={styles.reverseLeftTop}>
@@ -90,8 +102,14 @@ export default function WhyChoose() {
               <img src="/images/fruit.png" alt="decoration" />
             </div>
           </div>
-        </div>
-        <div className={styles.content}>
+        </motion.div>
+        <motion.div
+          className={styles.content}
+          initial={{ opacity: 0, y: 80 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+        >
           <div className={styles.wrapper}>
             {/* Top Left Image */}
             <div className={styles.imageTopLeft}>
@@ -116,8 +134,14 @@ export default function WhyChoose() {
               <img src="/images/fruit.png" alt="decoration" />
             </div>
           </div>
-        </div>
-        <div className={styles.rightContent}>
+        </motion.div>
+        <motion.div
+          className={styles.rightContent}
+          initial={{ opacity: 0, y: 80 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+        >
           <div className={styles.rightWrapper}>
             {/* Top Left Image */}
             <div className={styles.reverseLeftTop}>
@@ -144,8 +168,14 @@ export default function WhyChoose() {
               <img src="/images/fruit.png" alt="decoration" />
             </div>
           </div>
-        </div>
-        <div className={styles.content}>
+        </motion.div>
+        <motion.div
+          className={styles.content}
+          initial={{ opacity: 0, y: 80 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+        >
           <div className={styles.wrapper}>
             {/* Top Left Image */}
             <div className={styles.imageTopLeft}>
@@ -170,7 +200,7 @@ export default function WhyChoose() {
               <img src="/images/fruit.png" alt="decoration" />
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
