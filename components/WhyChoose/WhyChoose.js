@@ -34,9 +34,9 @@ export default function WhyChoose() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <h2>
+          <div className={styles.title}>
             WHY CHOOSE <span>BAMBHA MONK FRUIT?</span>
-          </h2>
+          </div>
         </motion.div>
 
         <div className={styles.content}>
@@ -65,7 +65,7 @@ export default function WhyChoose() {
             </div>
           </div>
         </div>
-        <div className={styles.content}>
+        <div className={styles.rightContent}>
           <div className={styles.rightWrapper}>
             {/* Top Left Image */}
             <div className={styles.reverseLeftTop}>
@@ -117,7 +117,7 @@ export default function WhyChoose() {
             </div>
           </div>
         </div>
-        <div className={styles.content}>
+        <div className={styles.rightContent}>
           <div className={styles.rightWrapper}>
             {/* Top Left Image */}
             <div className={styles.reverseLeftTop}>
