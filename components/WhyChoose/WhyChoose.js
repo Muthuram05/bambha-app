@@ -65,6 +65,112 @@ export default function WhyChoose() {
             </div>
           </div>
         </div>
+        <div className={styles.content}>
+          <div className={styles.rightWrapper}>
+            {/* Top Left Image */}
+            <div className={styles.reverseLeftTop}>
+              02
+            </div>
+
+            {/* Top Right Circle Number */}
+            <div className={styles.reverseRightImage}><img src="/images/2.png" alt="food" /></div>
+
+            {/* Content Box */}
+            <div className={styles.contentBox}>
+              <p>
+                The Perfect 1:1 Replacement Forget Complicated Math. Bambha Is
+                Formulated To Match The Sweetness Of Sugar Exactly. Whether
+                You’re Baking A Cake Or Sweetening Your Morning Coffee, Just
+                Swap Sugar For Bambha—Teaspoon.
+              </p>
+            </div>
+
+            {/* Bottom Right Decoration */}
+            <div className={styles.bottomRightImage}>
+              <img src="/images/fruit.png" alt="decoration" />
+            </div>
+          </div>
+        </div>
+        <div className={styles.content}>
+          <div className={styles.wrapper}>
+            {/* Top Left Image */}
+            <div className={styles.imageTopLeft}>
+              <img src="/images/2.png" alt="food" />
+            </div>
+
+            {/* Top Right Circle Number */}
+            <div className={styles.topRightCircle}>03</div>
+
+            {/* Content Box */}
+            <div className={styles.contentBox}>
+              <p>
+                The Perfect 1:1 Replacement Forget Complicated Math. Bambha Is
+                Formulated To Match The Sweetness Of Sugar Exactly. Whether
+                You’re Baking A Cake Or Sweetening Your Morning Coffee, Just
+                Swap Sugar For Bambha—Teaspoon.
+              </p>
+            </div>
+
+            {/* Bottom Right Decoration */}
+            <div className={styles.bottomRightImage}>
+              <img src="/images/fruit.png" alt="decoration" />
+            </div>
+          </div>
+        </div>
+        <div className={styles.content}>
+          <div className={styles.rightWrapper}>
+            {/* Top Left Image */}
+            <div className={styles.reverseLeftTop}>
+              04
+            </div>
+
+            {/* Top Right Circle Number */}
+            <div className={styles.reverseRightImage}>
+              <img src="/images/2.png" alt="food" />
+            </div>
+
+            {/* Content Box */}
+            <div className={styles.contentBox}>
+              <p>
+                The Perfect 1:1 Replacement Forget Complicated Math. Bambha Is
+                Formulated To Match The Sweetness Of Sugar Exactly. Whether
+                You’re Baking A Cake Or Sweetening Your Morning Coffee, Just
+                Swap Sugar For Bambha—Teaspoon.
+              </p>
+            </div>
+
+            {/* Bottom Right Decoration */}
+            <div className={styles.bottomRightImage}>
+              <img src="/images/fruit.png" alt="decoration" />
+            </div>
+          </div>
+        </div>
+        <div className={styles.content}>
+          <div className={styles.wrapper}>
+            {/* Top Left Image */}
+            <div className={styles.imageTopLeft}>
+              <img src="/images/2.png" alt="food" />
+            </div>
+
+            {/* Top Right Circle Number */}
+            <div className={styles.topRightCircle}>05</div>
+
+            {/* Content Box */}
+            <div className={styles.contentBox}>
+              <p>
+                The Perfect 1:1 Replacement Forget Complicated Math. Bambha Is
+                Formulated To Match The Sweetness Of Sugar Exactly. Whether
+                You’re Baking A Cake Or Sweetening Your Morning Coffee, Just
+                Swap Sugar For Bambha—Teaspoon.
+              </p>
+            </div>
+
+            {/* Bottom Right Decoration */}
+            <div className={styles.bottomRightImage}>
+              <img src="/images/fruit.png" alt="decoration" />
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
