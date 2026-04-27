@@ -1,5 +1,5 @@
 .section {
-  padding-block-end: 56px;
+  /* padding-block-end: 56px; */
   background: var(--white);
   border-bottom: 1px solid #eee;
   overflow: hidden;
@@ -14,7 +14,6 @@
 /* Header */
 .header {
   text-align: center;
-  margin-bottom: 48px;
 }
 
 .title {

@@ -50,18 +50,18 @@
 }
 
 .imgWrap {
-  background: var(--gray-light);
   height: 260px;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  padding: 12px 0;
 }
 
 .imgWrap img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .info {

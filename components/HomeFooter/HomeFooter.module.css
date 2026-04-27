@@ -30,7 +30,7 @@
   position: relative;
   background: #f5fadf;
   border-radius: 8px;
-  padding: 32px 24px;
+  padding: 45px 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -71,8 +71,8 @@
 }
 
 .iconCircle {
-  width: 48px;
-  height: 48px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
   background: #8db83a;
   display: flex;
@@ -85,7 +85,7 @@
 }
 
 .label {
-  font-size: 0.95rem;
+  font-size: 26px;
   font-weight: 500;
   color: var(--black);
   text-align: center;
@@ -98,10 +98,10 @@
   border-top: 1.5px solid #a8c85a;
   padding: 20px 24px;
   text-align: center;
+  font-size: 22px;
 }
 
 .bottom p {
-  font-size: 0.85rem;
   color: #6a8a2e;
 }
 

@@ -22,6 +22,8 @@ export default function ProductPage({ params }) {
   const [activeImg, setActiveImg] = useState(0);
   const [aboutOpen, setAboutOpen] = useState(false);
   const [returnsOpen, setReturnsOpen] = useState(false);
+  const [reviews, setReviews] = useState([]);
+  const [carouselIdx, setCarouselIdx] = useState(0);
 
   useEffect(() => {
     fetch(`/api/products/${id}`)
@@ -35,6 +37,9 @@ export default function ProductPage({ params }) {
         if (json.data?.weight_options?.length) setSelectedWeight(json.data.weight_options[0]);
       })
       .finally(() => setLoading(false));
+    fetch(`/api/reviews?product_id=${id}`)
+      .then(res => res.json())
+      .then(({ data }) => setReviews(data || []));
   }, [id]);
 
   if (loading) {
@@ -168,6 +173,28 @@ export default function ProductPage({ params }) {
                 Add to cart
               </button>
               <button className={styles.buyNowBtn}>Buy it now</button>
+
+              {reviews.length > 0 && (
+                <div className={styles.reviewCarousel}>
+                  <button
+                    className={styles.carouselArrow}
+                    onClick={() => setCarouselIdx(i => (i - 1 + reviews.length) % reviews.length)}
+                  >&#8249;</button>
+                  <div className={styles.carouselCard}>
+                    <div className={styles.carouselTop}>
+                      <span className={styles.carouselStars}>
+                        {'★'.repeat(reviews[carouselIdx].rating)}{'☆'.repeat(5 - reviews[carouselIdx].rating)}
+                      </span>
+                      <span className={styles.carouselName}>{reviews[carouselIdx].reviewer_name}</span>
+                    </div>
+                    <p className={styles.carouselText}>{reviews[carouselIdx].body || reviews[carouselIdx].review_body}</p>
+                  </div>
+                  <button
+                    className={styles.carouselArrow}
+                    onClick={() => setCarouselIdx(i => (i + 1) % reviews.length)}
+                  >&#8250;</button>
+                </div>
+              )}
 
               {product.description && (
                 <div className={styles.accordion}>
