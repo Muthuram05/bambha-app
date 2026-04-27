@@ -1,10 +1,10 @@
-import Link from 'next/link';
-import Navbar from '@/components/Navbar/Navbar';
-import Footer from '@/components/Footer/Footer';
-import styles from '../policy.module.css';
+import Link from "next/link";
+import Navbar from "@/components/Navbar/Navbar";
+import Footer from "@/components/Footer/Footer";
+import styles from "../policy.module.css";
 
 export const metadata = {
-  title: 'Terms of Service – BamBha',
+  title: "Terms of Service – BamBha",
 };
 
 export default function TermsPage() {
@@ -12,74 +12,97 @@ export default function TermsPage() {
     <>
       <Navbar />
       <main className={styles.main}>
+        <div className={styles.breadcrumb}>
+            <Link href="/">Home</Link> - <span>Terms of Service</span>
+          </div>
         <div className={styles.container}>
-          <div className={styles.breadcrumb}>
-            <Link href="/">Home</Link> &rsaquo; <span>Terms of Service</span>
-          </div>
-
+          
           <div className={styles.header}>
-            <h1 className={styles.title}>Terms of Service</h1>
-            <p className={styles.updated}>Last updated: April 2026</p>
+            Product information & Health Disclaimer :
           </div>
-
-          <div className={styles.body}>
-            <div className={styles.highlight}>
-              By accessing or purchasing from BamBha, you agree to be bound by these Terms of Service. Please read them carefully before using our website.
-            </div>
-
-            <div className={styles.section}>
-              <h2>1. Use of Website</h2>
-              <p>By using this website, you confirm that you are at least 18 years of age or are accessing the site under the supervision of a parent or guardian. You agree not to misuse our platform, attempt to gain unauthorized access, or engage in any activity that disrupts our services.</p>
-            </div>
-
-            <div className={styles.section}>
-              <h2>2. Products</h2>
-              <p>All products sold on BamBha are natural wellness products. While we strive for accuracy, product descriptions, images, and availability are subject to change without notice. We reserve the right to limit quantities or discontinue any product at any time.</p>
-            </div>
-
-            <div className={styles.section}>
-              <h2>3. Pricing & Payments</h2>
-              <ul>
-                <li>All prices are listed in Indian Rupees (INR) and include applicable taxes</li>
-                <li>We reserve the right to change prices at any time without prior notice</li>
-                <li>Payments are processed securely through Razorpay</li>
-                <li>Orders are confirmed only after successful payment</li>
-              </ul>
-            </div>
-
-            <div className={styles.section}>
-              <h2>4. Account Responsibility</h2>
-              <p>You are responsible for maintaining the confidentiality of your account credentials. Any activity that occurs under your account is your responsibility. Please notify us immediately if you suspect unauthorized use of your account.</p>
-            </div>
-
-            <div className={styles.section}>
-              <h2>5. Intellectual Property</h2>
-              <p>All content on this website — including text, images, logos, and product descriptions — is the property of BamBha and is protected by applicable intellectual property laws. You may not reproduce, distribute, or use any content without our express written permission.</p>
-            </div>
-
-            <div className={styles.section}>
-              <h2>6. Limitation of Liability</h2>
-              <p>BamBha shall not be liable for any indirect, incidental, or consequential damages arising from the use of our products or website. Our liability is limited to the amount paid for the specific product or service in question.</p>
-            </div>
-
-            <div className={styles.section}>
-              <h2>7. Governing Law</h2>
-              <p>These terms are governed by the laws of India. Any disputes shall be subject to the jurisdiction of the courts in Tirunelveli, Tamil Nadu.</p>
-            </div>
-
-            <div className={styles.section}>
-              <h2>8. Changes to Terms</h2>
-              <p>We reserve the right to update these terms at any time. Continued use of our website after changes are posted constitutes acceptance of the revised terms.</p>
-            </div>
-
-            <div className={styles.section}>
-              <h2>9. Contact Us</h2>
-              <div className={styles.contactBox}>
-                <p>For questions about these terms, contact us at:</p>
-                <p>Email: <a href="mailto:bambhanaturals@gmail.com">bambhanaturals@gmail.com</a></p>
-                <p>Phone/WhatsApp: 8270727878</p>
-              </div>
-            </div>
+          <div className={styles.content}>
+            <span className={styles.sectionTitle}>General Information :</span>
+            Bambha Monk fruit sweetener is a food product intended for use as a
+            sugar substitute.
+          </div>
+          <div className={styles.sectionTitle}>
+            All information provided on our website is for educational purposes
+            only.
+          </div>
+          <div className={styles.content}>
+            <span className={styles.sectionTitle}>Accuracy : </span>while we
+            strive for 100% accuracy, we do not warrant that product
+            descriptions or nutritional information are error-free
+          </div>
+          <div className={styles.sectionTitle}>
+            Quality & Compliances (FSSAI/Regulatory);
+          </div>
+          <div className={styles.content}>
+            <span className={styles.sectionTitle}>Licensing :</span>Bambha
+            operates under valid FSSAI (Food Safety and Standards Authority of
+            india) licensing.
+          </div>
+          <div className={styles.content}>
+            <span className={styles.sectionTitle}>Shelf Life :</span>In
+            accordance with 2026 regulations , we guarantee that all products
+            delivered will have a minimum of 30% of their shelf life remaining
+            (or at least 45 days) at the time of delivery.
+          </div>
+          <div className={styles.content}>
+            <span className={styles.sectionTitle}>Storage :</span>the Consumer
+            is responsible for following the storage instructions (eg., “store
+            in a cool, dry place”) provided on the packaging to maintain product
+            integrity.
+          </div>
+          <br />
+          <div className={styles.sectionTitle}>Orders and payments :</div>
+          <div className={styles.content}>
+            <span className={styles.sectionTitle}>Acceptance :</span> we reserve
+            the right to refuse or cancel any order for reasons including
+            product availability, errors in pricing, or suspicion of fraudulent
+            activity.
+          </div>
+          <div className={styles.content}>
+            <span className={styles.sectionTitle}>Pricing :</span> All prices
+            are subject to change without notice prices are inclusive of
+            applicable GST unless stated otherwise.
+          </div>
+          <div className={styles.content}>
+            <span className={styles.sectionTitle}>Payment :</span>
+            payments must be made via our authorized third-party payment
+            gateways. we do not store your credit card information .
+          </div>
+          <br />
+          <div className={styles.sectionTitle}>Shipping and Delivery :</div>
+          <div className={styles.content}>
+            Timeline: we aim to process orders within 1-2 business days.
+            delivery times are estimates and may vary based on location and
+            courier performance.
+          </div>
+          <div className={styles.content}>
+            <span className={styles.sectionTitle}>Risk of Loss :</span>
+            Risk of loss and title for the products pass to you upon our
+            delivery to the carrier.
+          </div>
+          <br />
+          <div className={styles.sectionTitle}> Intellectual Property :</div>
+          <div className={styles.content}>
+            All content on this site, including the name “Bambha,” logos, text
+            and images is the property of bambha and is protected by copyright
+            and trademark laws. you may not use our branding without express
+            written consent.
+          </div>
+          <div className={styles.sectionTitle}> Limitation of Liability :</div>
+          <div className={styles.content}>
+            To the maximum extent permitted by law, Bambha shall not be liable
+            for any indirect, incidental, or consequential damages resulting
+            from the use or inability to use our products or website.
+          </div>
+          <div className={styles.sectionTitle}>Governing Law :</div>
+          <div className={styles.content}>
+            These Terms are governed by the laws of india. any disputes arising
+            from these terms shall be subject to the exclusive jurisdiction of
+            the courts in Tamilnadu & Bangalore.
           </div>
         </div>
       </main>

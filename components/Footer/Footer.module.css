@@ -27,7 +27,7 @@
 
 /* Column titles */
 .colTitle {
-  font-size: 1rem;
+  font-size: 30px;
   font-weight: 600;
   color: #4a6741;
   margin-bottom: 20px;
@@ -44,7 +44,7 @@
 }
 
 .links ul li a {
-  font-size: 0.9rem;
+  font-size: 26px;
   color: #5a7050;
   text-decoration: none;
   transition: color 0.2s;
@@ -68,6 +68,7 @@
 }
 
 .contactLabel {
+  font-size: 28px;
   font-weight: 600;
   color: #4a6741;
 }

@@ -26,8 +26,8 @@ export default function Footer() {
         {/* Contact */}
         <div className={styles.contact}>
           <h4 className={styles.colTitle}>Contact us</h4>
-          <p><span className={styles.contactLabel}>Email:</span> bambhanaturals@gmail.com</p>
-          <p><span className={styles.contactLabel}>Phone/WhatsApp:</span> 8270727878</p>
+          <p className={styles.contactLabel}>bambhanaturals@gmail.com</p>
+          <p className={styles.contactLabel}>Phone/WhatsApp: 8270727878</p>
         </div>
 
       </div>

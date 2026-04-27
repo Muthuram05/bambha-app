@@ -1,17 +1,24 @@
 .main {
   min-height: 80vh;
-  padding: 56px 24px 100px;
+  padding-block-end: 40px;
 }
 
 .container {
-  max-width: 800px;
-  margin: 0 auto;
+  margin-inline: 200px;
 }
 
 .breadcrumb {
   font-size: 0.85rem;
+  background-color: var(--gray-light);
   color: var(--gray);
   margin-bottom: 32px;
+  padding-block: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 26px;
+  font-weight: 400;
 }
 
 .breadcrumb a {
@@ -22,11 +29,11 @@
   text-decoration: underline;
 }
 
-.header {
+/* .header {
   margin-bottom: 40px;
   padding-bottom: 24px;
   border-bottom: 2px solid #eef5d6;
-}
+} */
 
 .title {
   font-size: 2rem;
@@ -95,4 +102,21 @@
 .contactBox a {
   color: var(--green);
   font-weight: 600;
+}
+
+.header {
+    font-weight: 600;
+    font-size: 35px;
+}
+
+.content {
+  font-size: 26px;
+  font-weight: 500;
+  margin-bottom: 6px;
+  line-height: 1.6;
+}
+
+.sectionTitle {
+  font-weight: 600;
+  font-size: 28px;
 }
