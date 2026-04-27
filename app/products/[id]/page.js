@@ -87,11 +87,11 @@ export default function ProductPage({ params }) {
       <Navbar />
       <main className={styles.main}>
         <div className={styles.container}>
-          <div className={styles.breadcrumb}>
+          {/* <div className={styles.breadcrumb}>
             <Link href="/">Home</Link> &rsaquo;
             <Link href="/products"> Our Products</Link> &rsaquo;
             <span> {product.name}</span>
-          </div>
+          </div> */}
 
           <div className={styles.productLayout}>
             {/* Thumbnails */}

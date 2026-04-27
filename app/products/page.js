@@ -21,9 +21,9 @@ export default function ProductsPage() {
       <Navbar />
       <main className={styles.main}>
         <div className={styles.container}>
-          <div className={styles.breadcrumb}>
+          {/* <div className={styles.breadcrumb}>
             <Link href="/">Home</Link> &rsaquo; <span>Our Products</span>
-          </div>
+          </div> */}
           <h1 className={styles.heading}>Our Products</h1>
 
           {loading ? (
