@@ -72,8 +72,8 @@ export default function ProductPage({ params }) {
     );
   }
 
-  const images = [product.main_image, ...(product.gallery_images || [])].filter(Boolean);
-  const weights = product.weight_options || [];
+  const images = [product.main_image, ...(product.gallery || [])].filter(Boolean);
+  const weights = product.weights || [];
   const avgRating = product.avg_rating ? Number(product.avg_rating) : 0;
   const reviewCount = product.review_count || 0;
   const filledStars = Math.round(avgRating);
