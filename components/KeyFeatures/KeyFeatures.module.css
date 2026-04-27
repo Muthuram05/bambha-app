@@ -1,5 +1,4 @@
 .section {
-  padding: 72px 0;
   background: #fff;
 }
 
@@ -13,6 +12,8 @@
   align-items: end;
   gap: 16px;
   margin-bottom: 40px;
+  text-align: center;
+  justify-content: center;
 }
 
 .title {
@@ -84,7 +85,7 @@
 }
 
 .cellTitle {
-  font-size: 0.95rem;
+  font-size: 20px;
   font-weight: 800;
   color: #2a5a25;
   letter-spacing: 0.02em;
@@ -104,7 +105,7 @@
 }
 
 .cellDesc {
-  font-size: 0.83rem;
+  font-size: 18px;
   color: #444;
   line-height: 1.75;
 }
