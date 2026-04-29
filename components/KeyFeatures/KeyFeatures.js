@@ -64,6 +64,7 @@ export default function KeyFeatures() {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
+          <img src="/images/bamboo.png" alt="" className={styles.titleLine} aria-hidden="true" />
           <h2 className={styles.title}>KEY PRODUCT <span>FEATURES</span></h2>
           <img src="/images/bamboo.png" alt="" className={styles.titleLine} aria-hidden="true" />
         </motion.div>

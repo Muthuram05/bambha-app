@@ -25,6 +25,18 @@ const cards = [
     ),
   },
   {
+    href: '/shipping-policy',
+    label: 'Shipping, Refund and cancellation policy',
+    icon: (
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <rect x="1" y="3" width="15" height="13" rx="1"/>
+        <path d="M16 8h4l3 5v3h-7V8z"/>
+        <circle cx="5.5" cy="18.5" r="2.5"/>
+        <circle cx="18.5" cy="18.5" r="2.5"/>
+      </svg>
+    ),
+  },
+  {
     href: '/privacy-policy',
     label: 'Privacy policy',
     icon: (
@@ -45,18 +57,7 @@ const cards = [
       </svg>
     ),
   },
-  {
-    href: '/shipping-policy',
-    label: 'Shipping, Refund and cancellation policy',
-    icon: (
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <rect x="1" y="3" width="15" height="13" rx="1"/>
-        <path d="M16 8h4l3 5v3h-7V8z"/>
-        <circle cx="5.5" cy="18.5" r="2.5"/>
-        <circle cx="18.5" cy="18.5" r="2.5"/>
-      </svg>
-    ),
-  },
+  
 ];
 
 export default function HomeFooter() {
@@ -66,8 +67,8 @@ export default function HomeFooter() {
         <div className={styles.row1}>
           {cards.slice(0, 3).map((card) => (
             <Link key={card.href} href={card.href} className={styles.card}>
-              <img src="/images/29dddafea422768c41be0643eb51bdcd1e3b58d6.png" alt="" className={styles.leafLeft} aria-hidden="true" />
-              <img src="/images/29dddafea422768c41be0643eb51bdcd1e3b58d6.png" alt="" className={styles.leafRight} aria-hidden="true" />
+              <img src="/single-left.png" alt="" className={styles.leafLeft} aria-hidden="true" />
+              <img src="/single-left.png" alt="" className={styles.leafRight} aria-hidden="true" />
               <div className={styles.iconCircle}>{card.icon}</div>
               <span className={styles.label}>{card.label}</span>
             </Link>
@@ -76,8 +77,8 @@ export default function HomeFooter() {
         <div className={styles.row2}>
           {cards.slice(3).map((card) => (
             <Link key={card.href} href={card.href} className={styles.card}>
-              <img src="/images/29dddafea422768c41be0643eb51bdcd1e3b58d6.png" alt="" className={styles.leafLeft} aria-hidden="true" />
-              <img src="/images/29dddafea422768c41be0643eb51bdcd1e3b58d6.png" alt="" className={styles.leafRight} aria-hidden="true" />
+              <img src="/single-left.png" alt="" className={styles.leafLeft} aria-hidden="true" />
+              <img src="/single-left.png" alt="" className={styles.leafRight} aria-hidden="true" />
               <div className={styles.iconCircle}>{card.icon}</div>
               <span className={styles.label}>{card.label}</span>
             </Link>

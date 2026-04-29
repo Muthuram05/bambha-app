@@ -1,11 +1,12 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Link from 'next/link';
 import styles from './Hero.module.css';
 
 const FALLBACK_SLIDES = [
-  { id: 1, image: '/images/hero-banner-1.jpg' },
-  { id: 2, image: '/images/hero-banner-2.jpg' },
+  { id: 1, image: '/images/hero-banner-1.jpg', url: '/products' },
+  { id: 2, image: '/images/hero-banner-2.jpg', url: '/products' },
 ];
 
 const variants = {
@@ -27,7 +28,7 @@ export default function Hero() {
       .then(({ data }) => {
         const active = (data || []).filter(b => b.is_active);
         const resolved = active.length > 0
-          ? active.map(b => ({ id: b.id, image: b.image_url }))
+          ? active.map(b => ({ id: b.id, image: b.image_url, url: b.redirect_url || '/products' }))
           : FALLBACK_SLIDES;
         slidesRef.current = resolved;
         setSlides(resolved);
@@ -67,23 +68,29 @@ export default function Hero() {
     <section className={styles.hero}>
       <div className={styles.track}>
         <AnimatePresence custom={dir} mode="wait">
-          <motion.img
-            key={slides[index].id}
-            src={slides[index].image}
-            alt={`Banner ${index + 1}`}
-            className={styles.slide}
-            custom={dir}
-            variants={variants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={{ duration: 0.5, ease: 'easeInOut' }}
-          />
+          <Link href={slides[index].url || '/products'} className={styles.slideLink}>
+            <motion.img
+              key={slides[index].id}
+              src={slides[index].image}
+              alt={`Banner ${index + 1}`}
+              className={styles.slide}
+              custom={dir}
+              variants={variants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ duration: 0.5, ease: 'easeInOut' }}
+            />
+          </Link>
         </AnimatePresence>
       </div>
 
-      <button className={`${styles.arrow} ${styles.arrowLeft}`} onClick={prev} aria-label="Previous slide">‹</button>
-      <button className={`${styles.arrow} ${styles.arrowRight}`} onClick={next} aria-label="Next slide">›</button>
+      <button className={`${styles.arrow} ${styles.arrowLeft}`} onClick={prev} aria-label="Previous slide">
+        <img src="/left-arrow.png" alt="Previous" className={styles.arrowIcon} />
+      </button>
+      <button className={`${styles.arrow} ${styles.arrowRight}`} onClick={next} aria-label="Next slide">
+        <img src="/left-arrow.png" alt="Next" className={`${styles.arrowIcon} ${styles.arrowIconFlipped}`} />
+      </button>
 
       <div className={styles.dots}>
         {slides.map((_, i) => (

@@ -34,9 +34,11 @@ export default function WhyChoose() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
+          <img src="/images/bamboo.png" alt="" className={styles.titleLine} aria-hidden="true" />
           <div className={styles.title}>
             WHY CHOOSE <span>BAMBHA MONK FRUIT?</span>
           </div>
+          <img src="/images/bamboo.png" alt="" className={styles.titleLine} aria-hidden="true" />
         </motion.div>
 
         <motion.div

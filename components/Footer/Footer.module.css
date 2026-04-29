@@ -1,5 +1,5 @@
 .footer {
-  background: #eef5d6;
+  background: #eef5d6 url('/footer-bg.png') center / cover no-repeat;
   padding: 60px 0 0;
 }
 

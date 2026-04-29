@@ -26,10 +26,11 @@ export default function Benefits() {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
+          <img src="/images/bamboo.png" alt="Bambha Logo" className={styles.logo} />
           <h2 className={styles.title}>
             BENEFITS OF <span>BAMBHA</span>
           </h2>
-          <div className={styles.titleLine} />
+          <img src="/images/bamboo.png" alt="Bambha Logo" className={styles.logo} />
         </motion.div>
       </div>
 

@@ -2,12 +2,12 @@
   position: relative;
   width: 100%;
   overflow: hidden;
-  min-height: clamp(200px, 40vw, 600px);
+  min-height: clamp(200px, 35vw, 600px);
 }
 
 .heroSkeleton {
   width: 100%;
-  height: clamp(200px, 40vw, 600px);
+  height: clamp(200px, 35vw, 600px);
   background: #f0f0f0;
 }
 
@@ -17,11 +17,18 @@
   line-height: 0;
 }
 
+.slideLink {
+  display: block;
+  width: 100%;
+  line-height: 0;
+}
+
 .slide {
   width: 100%;
   height: auto;
   display: block;
   object-fit: contain;
+  cursor: pointer;
 }
 
 /* Arrows */
@@ -34,20 +41,28 @@
   border-radius: 50%;
   width: 44px;
   height: 44px;
-  font-size: 1.8rem;
-  line-height: 1;
   cursor: pointer;
-  color: #2d5a27;
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: 0 2px 8px rgba(0,0,0,0.15);
   transition: background 0.2s;
   z-index: 10;
+  padding: 8px;
 }
 
 .arrow:hover {
   background: #fff;
+}
+
+.arrowIcon {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.arrowIconFlipped {
+  transform: scaleX(-1);
 }
 
 .arrowLeft { left: 16px; }
