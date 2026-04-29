@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { createClient } from '@/utils/supabase/client';
+import RichTextEditor from '@/components/RichTextEditor/RichTextEditor';
 import styles from './addProduct.module.css';
 
 const WEIGHTS = ['100gm', '150gm', '200gm', '250gm', '400gm', '500gm', '1kg'];
@@ -185,13 +186,9 @@ export default function AddProductPage() {
 
         <div className={styles.field}>
           <label className={styles.fieldLabel}>Product Description</label>
-          <textarea
-            className={styles.textarea}
-            name="description"
+          <RichTextEditor
             value={form.description}
-            onChange={handleChange}
-            placeholder="Write Content  here"
-            rows={6}
+            onChange={(html) => setForm(prev => ({ ...prev, description: html }))}
           />
         </div>
 

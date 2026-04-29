@@ -375,3 +375,33 @@
     height: 320px;
   }
 }
+
+/* Rich text description */
+.richText {
+  font-size: 0.92rem;
+  color: #444;
+  line-height: 1.8;
+}
+
+.richText h1, .richText h2, .richText h3 {
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 12px 0 6px;
+}
+
+.richText h1 { font-size: 1.2rem; }
+.richText h2 { font-size: 1.05rem; }
+.richText h3 { font-size: 0.95rem; }
+
+.richText p { margin: 0 0 8px; }
+
+.richText ul, .richText ol {
+  padding-left: 20px;
+  margin: 0 0 8px;
+}
+
+.richText li { margin-bottom: 4px; }
+
+.richText strong { font-weight: 700; color: #1a1a1a; }
+.richText em { font-style: italic; }
+.richText u { text-decoration: underline; }

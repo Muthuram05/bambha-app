@@ -203,9 +203,10 @@ export default function ProductPage({ params }) {
                     <span>{aboutOpen ? '∧' : '∨'}</span>
                   </button>
                   {aboutOpen && (
-                    <div className={styles.accordionContent}>
-                      <p>{product.description}</p>
-                    </div>
+                    <div
+                      className={`${styles.accordionContent} ${styles.richText}`}
+                      dangerouslySetInnerHTML={{ __html: product.description }}
+                    />
                   )}
                 </div>
               )}
