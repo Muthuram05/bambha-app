@@ -23,7 +23,7 @@
 
 /* Form */
 .sectionTitle {
-  font-size: 1rem;
+  font-size: 34px;
   font-weight: 600;
   color: var(--black);
   margin-bottom: 24px;
@@ -111,7 +111,7 @@
 }
 
 .name {
-  font-size: 0.95rem;
+  font-size: 28px;
   font-weight: 500;
   color: var(--black);
   margin-bottom: 20px;
@@ -120,8 +120,13 @@
 .infoItem {
   display: flex;
   align-items: flex-start;
+  align-items: center;
   gap: 12px;
   margin-bottom: 18px;
+}
+
+.infoText {
+  font-size: 28px;
 }
 
 .icon {
@@ -130,11 +135,6 @@
   margin-top: 2px;
 }
 
-.infoItem p {
-  font-size: 0.9rem;
-  color: var(--black);
-  line-height: 1.6;
-}
 
 @media (max-width: 768px) {
   .container {

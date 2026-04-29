@@ -16,7 +16,7 @@ export default function TermsPage() {
             <Link href="/">Home</Link> - <span>Terms of Service</span>
           </div>
         <div className={styles.container}>
-          
+
           <div className={styles.header}>
             Product information & Health Disclaimer :
           </div>
@@ -50,8 +50,8 @@ export default function TermsPage() {
           </div>
           <div className={styles.content}>
             <span className={styles.sectionTitle}>Storage :</span>the Consumer
-            is responsible for following the storage instructions (eg., “store
-            in a cool, dry place”) provided on the packaging to maintain product
+            is responsible for following the storage instructions (eg., "store
+            in a cool, dry place") provided on the packaging to maintain product
             integrity.
           </div>
           <br />
@@ -87,7 +87,7 @@ export default function TermsPage() {
           <br />
           <div className={styles.sectionTitle}> Intellectual Property :</div>
           <div className={styles.content}>
-            All content on this site, including the name “Bambha,” logos, text
+            All content on this site, including the name "Bambha," logos, text
             and images is the property of bambha and is protected by copyright
             and trademark laws. you may not use our branding without express
             written consent.

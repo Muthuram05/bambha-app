@@ -8,9 +8,8 @@
 }
 
 .inner {
-  max-width: 1200px;
   margin: 0 auto;
-  padding: 18px 24px;
+  padding: 18px 100px;
   height: 100px;
   display: flex;
   align-items: center;

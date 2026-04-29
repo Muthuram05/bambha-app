@@ -41,12 +41,73 @@
   border-radius: 8px;
   overflow: hidden;
   transition: box-shadow 0.2s, transform 0.2s;
-  display: block;
+  display: flex;
+  flex-direction: column;
 }
 
 .card:hover {
   box-shadow: 0 6px 24px rgba(0,0,0,0.1);
   transform: translateY(-2px);
+}
+
+.cardLink {
+  display: block;
+  flex: 1;
+  text-decoration: none;
+  color: inherit;
+}
+
+.cartRow {
+  padding: 0 16px 16px;
+}
+
+.addBtn {
+  width: 100%;
+  padding: 10px 0;
+  background: var(--green);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.addBtn:hover {
+  background: #2e5c22;
+}
+
+.qtyControl {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 2px solid var(--green);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.qtyBtn {
+  flex: 1;
+  padding: 8px 0;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--green);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.qtyBtn:hover {
+  background: #eef5e8;
+}
+
+.qtyNum {
+  padding: 8px 12px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--black);
 }
 
 .imgWrap {
