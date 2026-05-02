@@ -253,6 +253,98 @@
   color: #fff;
 }
 
+/* Weight + price table */
+.weightTable {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.weightTableHeader {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 36px;
+  gap: 10px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--gray);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0 4px;
+}
+
+.weightTableRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 36px;
+  gap: 10px;
+  align-items: center;
+}
+
+.weightInput {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 10px 12px;
+  font-size: 0.88rem;
+  font-family: var(--font);
+  color: var(--black);
+  background: #fff;
+  outline: none;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+
+.weightInput:focus {
+  border-color: var(--green);
+}
+
+.weightInput::placeholder {
+  color: #bbb;
+}
+
+.removeRowBtn {
+  background: none;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  color: #bbb;
+  font-size: 0.75rem;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.removeRowBtn:hover:not(:disabled) {
+  color: #c62828;
+  border-color: #c62828;
+}
+
+.removeRowBtn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.addRowBtn {
+  align-self: flex-start;
+  background: none;
+  border: 1px dashed #bbb;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 0.82rem;
+  font-family: var(--font);
+  color: var(--gray);
+  cursor: pointer;
+  margin-top: 4px;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.addRowBtn:hover {
+  border-color: var(--green);
+  color: var(--green);
+}
+
 /* Add button */
 .addBtn {
   width: 170px;

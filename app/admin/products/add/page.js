@@ -4,8 +4,6 @@ import { createClient } from '@/utils/supabase/client';
 import RichTextEditor from '@/components/RichTextEditor/RichTextEditor';
 import styles from './addProduct.module.css';
 
-const WEIGHTS = ['100gm', '150gm', '200gm', '250gm', '400gm', '500gm', '1kg'];
-
 const supabase = createClient();
 
 async function uploadImage(file, folder) {
@@ -18,8 +16,8 @@ async function uploadImage(file, folder) {
 }
 
 export default function AddProductPage() {
-  const [form, setForm] = useState({ name: '', description: '', mrp: '', price: '' });
-  const [selectedWeights, setSelectedWeights] = useState([]);
+  const [form, setForm] = useState({ name: '', description: '' });
+  const [weightRows, setWeightRows] = useState([{ weight: '', price: '', mrp: '' }]);
   const [mainImage, setMainImage] = useState(null);
   const [mainPreview, setMainPreview] = useState(null);
   const [gallery, setGallery] = useState([null, null, null]);
@@ -52,10 +50,16 @@ export default function AddProductPage() {
     }
   };
 
-  const toggleWeight = (w) => {
-    setSelectedWeights(prev =>
-      prev.includes(w) ? prev.filter(x => x !== w) : [...prev, w]
-    );
+  const addWeightRow = () => {
+    setWeightRows(prev => [...prev, { weight: '', price: '', mrp: '' }]);
+  };
+
+  const removeWeightRow = (index) => {
+    setWeightRows(prev => prev.filter((_, i) => i !== index));
+  };
+
+  const updateWeightRow = (index, field, value) => {
+    setWeightRows(prev => prev.map((row, i) => i === index ? { ...row, [field]: value } : row));
   };
 
   const handleSubmit = async (e) => {
@@ -63,34 +67,46 @@ export default function AddProductPage() {
     setLoading(true);
     setError('');
 
+    // Validate weight rows
+    for (const row of weightRows) {
+      if (!row.weight.trim() || !row.price || !row.mrp) {
+        setError('Please fill in weight, price, and MRP for all weight options.');
+        setLoading(false);
+        return;
+      }
+    }
+
     try {
-      // Upload main image
       let mainImageUrl = null;
       if (mainImage) {
         mainImageUrl = await uploadImage(mainImage, 'main');
       }
 
-      // Upload gallery images
       const galleryUrls = await Promise.all(
         gallery.map(file => file ? uploadImage(file, 'gallery') : null)
       );
 
-      // Insert product into Supabase
+      const weights = weightRows.map(r => ({
+        weight: r.weight.trim(),
+        price: parseFloat(r.price),
+        mrp: parseFloat(r.mrp),
+      }));
+
+      // Store first weight's price/mrp at top level for backward compat
       const { error: insertError } = await supabase.from('products').insert({
         name: form.name,
         description: form.description,
-        mrp: parseFloat(form.mrp),
-        price: parseFloat(form.price),
-        weights: selectedWeights,
+        price: weights[0].price,
+        mrp: weights[0].mrp,
+        weights,
         main_image: mainImageUrl,
         gallery: galleryUrls.filter(Boolean),
       });
 
       if (insertError) throw insertError;
 
-      // Reset form
-      setForm({ name: '', description: '', mrp: '', price: '' });
-      setSelectedWeights([]);
+      setForm({ name: '', description: '' });
+      setWeightRows([{ weight: '', price: '', mrp: '' }]);
       setMainImage(null);
       setMainPreview(null);
       setGallery([null, null, null]);
@@ -109,10 +125,8 @@ export default function AddProductPage() {
       {success && <div className={styles.successMsg}>✅ Product added successfully!</div>}
       {error && <div className={styles.errorMsg}>❌ {error}</div>}
 
-      {/* Upload Image Section */}
       <h2 className={styles.sectionTitle}>Upload Image</h2>
 
-      {/* Product Image */}
       <div className={styles.uploadRow}>
         <div className={styles.uploadLabel}>
           <p className={styles.labelTitle}>Product Image</p>
@@ -135,7 +149,6 @@ export default function AddProductPage() {
         </label>
       </div>
 
-      {/* Product Gallery */}
       <div className={styles.uploadRow}>
         <div className={styles.uploadLabel}>
           <p className={styles.labelTitle}>Product Gallery</p>
@@ -170,7 +183,6 @@ export default function AddProductPage() {
         </div>
       </div>
 
-      {/* Form */}
       <form onSubmit={handleSubmit} className={styles.form}>
         <div className={styles.field}>
           <label className={styles.fieldLabel}>Product Name</label>
@@ -192,46 +204,54 @@ export default function AddProductPage() {
           />
         </div>
 
-        <div className={styles.bottomRow}>
-          <div className={styles.priceGroup}>
-            <div className={styles.priceField}>
-              <label className={styles.fieldLabel}>MRP</label>
-              <input
-                className={styles.priceInput}
-                name="mrp"
-                type="number"
-                value={form.mrp}
-                onChange={handleChange}
-                required
-              />
+        {/* Weight + Price rows */}
+        <div className={styles.field}>
+          <label className={styles.fieldLabel}>Weight Options & Pricing</label>
+          <div className={styles.weightTable}>
+            <div className={styles.weightTableHeader}>
+              <span>Weight</span>
+              <span>Price (Rs)</span>
+              <span>MRP (Rs)</span>
+              <span></span>
             </div>
-            <div className={styles.priceField}>
-              <label className={styles.fieldLabel}>Price</label>
-              <input
-                className={styles.priceInput}
-                name="price"
-                type="number"
-                value={form.price}
-                onChange={handleChange}
-                required
-              />
-            </div>
-          </div>
-
-          <div className={styles.weightGroup}>
-            <label className={styles.fieldLabel}>Weight</label>
-            <div className={styles.weightPills}>
-              {WEIGHTS.map((w) => (
+            {weightRows.map((row, i) => (
+              <div key={i} className={styles.weightTableRow}>
+                <input
+                  className={styles.weightInput}
+                  placeholder="e.g. 250gm"
+                  value={row.weight}
+                  onChange={e => updateWeightRow(i, 'weight', e.target.value)}
+                  required
+                />
+                <input
+                  className={styles.weightInput}
+                  type="number"
+                  placeholder="199"
+                  value={row.price}
+                  onChange={e => updateWeightRow(i, 'price', e.target.value)}
+                  required
+                />
+                <input
+                  className={styles.weightInput}
+                  type="number"
+                  placeholder="249"
+                  value={row.mrp}
+                  onChange={e => updateWeightRow(i, 'mrp', e.target.value)}
+                  required
+                />
                 <button
-                  key={w}
                   type="button"
-                  className={`${styles.pill} ${selectedWeights.includes(w) ? styles.pillActive : ''}`}
-                  onClick={() => toggleWeight(w)}
+                  className={styles.removeRowBtn}
+                  onClick={() => removeWeightRow(i)}
+                  disabled={weightRows.length === 1}
                 >
-                  {w}
+                  ✕
                 </button>
-              ))}
-            </div>
+              </div>
+            ))}
+            <button type="button" className={styles.addRowBtn} onClick={addWeightRow}>
+              + Add weight
+            </button>
           </div>
         </div>
 

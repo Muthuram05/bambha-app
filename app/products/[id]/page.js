@@ -17,7 +17,7 @@ export default function ProductPage({ params }) {
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
 
-  const [selectedWeight, setSelectedWeight] = useState('');
+  const [selectedWeight, setSelectedWeight] = useState(null); // full weight object {weight, price, mrp}
   const [qty, setQty] = useState(1);
   const [activeImg, setActiveImg] = useState(0);
   const [aboutOpen, setAboutOpen] = useState(false);
@@ -34,7 +34,11 @@ export default function ProductPage({ params }) {
       .then(json => {
         if (!json) return;
         setProduct(json.data);
-        if (json.data?.weight_options?.length) setSelectedWeight(json.data.weight_options[0]);
+        if (json.data?.weights?.length) {
+          const first = json.data.weights[0];
+          // Support both object format {weight, price, mrp} and legacy string format
+          setSelectedWeight(typeof first === 'object' ? first : { weight: first, price: json.data.price, mrp: json.data.mrp });
+        }
       })
       .finally(() => setLoading(false));
     fetch(`/api/reviews?product_id=${id}`)
@@ -78,13 +82,21 @@ export default function ProductPage({ params }) {
   }
 
   const images = [product.main_image, ...(product.gallery || [])].filter(Boolean);
-  const weights = product.weights || [];
+  // Normalize weights to always be objects {weight, price, mrp}
+  const weights = (product.weights || []).map(w => {
+    if (typeof w === 'object') return w;
+    try { return JSON.parse(w); } catch { return { weight: w, price: product.price, mrp: product.mrp }; }
+  });
+  const displayPrice = selectedWeight?.price ?? product.price;
+  const displayMrp = selectedWeight?.mrp ?? product.mrp;
   const avgRating = product.avg_rating ? Number(product.avg_rating) : 0;
   const reviewCount = product.review_count || 0;
   const filledStars = Math.round(avgRating);
 
   const handleAddToCart = () => {
-    addToCart(product, selectedWeight, product.price, qty);
+    const weightLabel = selectedWeight?.weight || '';
+    const price = selectedWeight?.price ?? product.price;
+    addToCart(product, weightLabel, price, qty);
   };
 
   return (
@@ -135,10 +147,10 @@ export default function ProductPage({ params }) {
               </div>
 
               <div className={styles.priceRow}>
-                {product.mrp && product.mrp > product.price && (
-                  <span className={styles.originalPrice}>Rs.{product.mrp}</span>
+                {displayMrp && displayMrp > displayPrice && (
+                  <span className={styles.originalPrice}>Rs.{displayMrp}</span>
                 )}
-                <span className={styles.price}>Rs.{product.price}</span>
+                <span className={styles.price}>Rs.{displayPrice}</span>
               </div>
 
               <p className={styles.delivery}>📦 Usually ships in 2–4 business days</p>
@@ -149,11 +161,11 @@ export default function ProductPage({ params }) {
                   <div className={styles.weightOptions}>
                     {weights.map((w) => (
                       <button
-                        key={w}
-                        className={`${styles.weightBtn} ${selectedWeight === w ? styles.weightActive : ''}`}
+                        key={w.weight}
+                        className={`${styles.weightBtn} ${selectedWeight?.weight === w.weight ? styles.weightActive : ''}`}
                         onClick={() => setSelectedWeight(w)}
                       >
-                        {w}
+                        {w.weight}
                       </button>
                     ))}
                   </div>
