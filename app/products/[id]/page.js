@@ -36,8 +36,13 @@ export default function ProductPage({ params }) {
         setProduct(json.data);
         if (json.data?.weights?.length) {
           const first = json.data.weights[0];
-          // Support both object format {weight, price, mrp} and legacy string format
-          setSelectedWeight(typeof first === 'object' ? first : { weight: first, price: json.data.price, mrp: json.data.mrp });
+          let firstObj;
+          if (typeof first === 'object') {
+            firstObj = first;
+          } else {
+            try { firstObj = JSON.parse(first); } catch { firstObj = { weight: first, price: json.data.price, mrp: json.data.mrp }; }
+          }
+          setSelectedWeight(firstObj);
         }
       })
       .finally(() => setLoading(false));
@@ -97,6 +102,13 @@ export default function ProductPage({ params }) {
     const weightLabel = selectedWeight?.weight || '';
     const price = selectedWeight?.price ?? product.price;
     addToCart(product, weightLabel, price, qty);
+  };
+
+  const handleBuyNow = () => {
+    const weightLabel = selectedWeight?.weight || '';
+    const price = selectedWeight?.price ?? product.price;
+    addToCart(product, weightLabel, price, qty);
+    router.push('/checkout');
   };
 
   return (
@@ -184,7 +196,7 @@ export default function ProductPage({ params }) {
               <button className={styles.addCartBtn} onClick={handleAddToCart}>
                 Add to cart
               </button>
-              <button className={styles.buyNowBtn}>Buy it now</button>
+              <button className={styles.buyNowBtn} onClick={handleBuyNow}>Buy it now</button>
 
               {reviews.length > 0 && (
                 <div className={styles.reviewCarousel}>
