@@ -66,8 +66,14 @@
   background: #f9f9f9;
 }
 
-.orderId {
+.returnId {
   font-weight: 700;
+  color: #f57f17;
+  white-space: nowrap;
+}
+
+.orderId {
+  font-weight: 600;
   color: var(--green-dark);
   white-space: nowrap;
 }
@@ -83,14 +89,6 @@
   margin-top: 2px;
 }
 
-.itemsCell {
-  max-width: 200px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  color: var(--gray);
-}
-
 .amount {
   font-weight: 600;
   white-space: nowrap;
@@ -99,6 +97,14 @@
 .date {
   color: var(--gray);
   white-space: nowrap;
+}
+
+.reasonCell {
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--gray);
 }
 
 .statusSelect {
@@ -114,7 +120,7 @@
 
 .statusSelect:disabled {
   opacity: 0.6;
-  cursor: wait;
+  cursor: not-allowed;
 }
 
 .expandBtn {
@@ -136,7 +142,7 @@
 .detailRow td {
   background: #f5f8f5;
   padding: 0;
-  border-bottom: 2px solid var(--green);
+  border-bottom: 2px solid #f57f17;
 }
 
 .detailGrid {
@@ -169,6 +175,60 @@
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-bottom: 10px;
+}
+
+.reasonFull {
+  font-size: 0.825rem;
+  color: var(--black);
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+.notesSection {
+  display: flex;
+  flex-direction: column;
+}
+
+.notesTextarea {
+  width: 100%;
+  border: 1px solid var(--gray-border);
+  border-radius: 4px;
+  padding: 8px;
+  font-size: 0.8rem;
+  font-family: var(--font);
+  resize: vertical;
+  min-height: 80px;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.15s;
+}
+
+.notesTextarea:focus {
+  border-color: var(--green);
+}
+
+.saveNotesBtn {
+  align-self: flex-start;
+  background: var(--green);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 14px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-family: var(--font);
+  cursor: pointer;
+  margin-top: 8px;
+  transition: opacity 0.15s;
+}
+
+.saveNotesBtn:hover:not(:disabled) {
+  opacity: 0.88;
+}
+
+.saveNotesBtn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
 }
 
 .detailItem {
@@ -207,13 +267,4 @@
 .metaLabel {
   color: var(--gray);
   font-size: 0.78rem;
-}
-
-.returnBadge {
-  display: inline-block;
-  padding: 3px 8px;
-  border-radius: 10px;
-  font-size: 0.7rem;
-  font-weight: 600;
-  white-space: nowrap;
 }

@@ -8,10 +8,22 @@ import styles from './order.module.css';
 
 const supabase = createClient();
 
+const RETURN_STATUS_STYLE = {
+  requested: { bg: '#fff8e1', color: '#f57f17' },
+  approved:  { bg: '#e8f5e9', color: '#2e7d32' },
+  rejected:  { bg: '#fce4ec', color: '#c62828' },
+  refunded:  { bg: '#e3f2fd', color: '#1565c0' },
+};
+
 export default function OrderSuccessPage({ params }) {
   const { id } = use(params);
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [returnData, setReturnData] = useState(null);
+  const [showReturnForm, setShowReturnForm] = useState(false);
+  const [reason, setReason] = useState('');
+  const [submitting, setSubmitting] = useState(false);
+  const [returnError, setReturnError] = useState('');
 
   useEffect(() => {
     supabase
@@ -19,9 +31,46 @@ export default function OrderSuccessPage({ params }) {
       .select('*')
       .eq('id', id)
       .single()
-      .then(({ data }) => setOrder(data))
+      .then(({ data }) => {
+        setOrder(data);
+        if (data?.status === 'delivered') {
+          fetch('/api/returns')
+            .then(r => r.json())
+            .then(({ data: returnsData }) => {
+              const match = (returnsData || []).find(r => r.order_id === id);
+              if (match) setReturnData(match);
+            });
+        }
+      })
       .finally(() => setLoading(false));
   }, [id]);
+
+  const handleReturnSubmit = async () => {
+    if (!reason.trim()) {
+      setReturnError('Please describe the reason for your return.');
+      return;
+    }
+    setSubmitting(true);
+    setReturnError('');
+    try {
+      const res = await fetch('/api/returns', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ order_id: id, reason }),
+      });
+      const json = await res.json();
+      if (!res.ok) {
+        setReturnError(json.error || 'Failed to submit return request.');
+        return;
+      }
+      setReturnData(json.data);
+      setShowReturnForm(false);
+    } catch {
+      setReturnError('Something went wrong. Please try again.');
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   return (
     <>
@@ -90,6 +139,61 @@ export default function OrderSuccessPage({ params }) {
               <p>{order.shipping_address?.city}, {order.shipping_address?.state} – {order.shipping_address?.pincode}</p>
               <p>📞 {order.shipping_address?.phone}</p>
             </div>
+
+            {order.status === 'delivered' && (
+              <div className={styles.returnSection}>
+                <h2 className={styles.returnTitle}>Return</h2>
+                {returnData ? (
+                  <>
+                    <p className={styles.returnStatusLabel}>Status</p>
+                    <span
+                      className={styles.returnStatus}
+                      style={{
+                        background: RETURN_STATUS_STYLE[returnData.status].bg,
+                        color: RETURN_STATUS_STYLE[returnData.status].color,
+                      }}
+                    >
+                      {returnData.status.charAt(0).toUpperCase() + returnData.status.slice(1)}
+                    </span>
+                    <p className={styles.returnReason}>{returnData.reason}</p>
+                    {returnData.admin_notes && (
+                      <p className={styles.returnNotes}>Admin note: {returnData.admin_notes}</p>
+                    )}
+                  </>
+                ) : showReturnForm ? (
+                  <>
+                    <textarea
+                      className={styles.returnTextarea}
+                      placeholder="Describe why you'd like to return this order…"
+                      value={reason}
+                      onChange={e => setReason(e.target.value)}
+                      rows={4}
+                    />
+                    {returnError && <p className={styles.returnError}>{returnError}</p>}
+                    <div className={styles.returnActions}>
+                      <button
+                        className={styles.returnCancelBtn}
+                        onClick={() => { setShowReturnForm(false); setReturnError(''); }}
+                        disabled={submitting}
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        className={styles.returnSubmitBtn}
+                        onClick={handleReturnSubmit}
+                        disabled={submitting}
+                      >
+                        {submitting ? 'Submitting…' : 'Submit Request'}
+                      </button>
+                    </div>
+                  </>
+                ) : (
+                  <button className={styles.returnBtn} onClick={() => setShowReturnForm(true)}>
+                    Request Return
+                  </button>
+                )}
+              </div>
+            )}
 
             <div className={styles.actions}>
               <Link href="/products" className="btn-primary">Continue Shopping</Link>

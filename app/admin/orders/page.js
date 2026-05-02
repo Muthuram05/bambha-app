@@ -29,15 +29,19 @@ export default function AdminOrdersPage() {
   const [error, setError] = useState('');
   const [expanded, setExpanded] = useState(null);
   const [updatingId, setUpdatingId] = useState(null);
+  const [returnsByOrderId, setReturnsByOrderId] = useState({});
 
   useEffect(() => {
-    fetch('/api/admin/orders')
-      .then(res => res.json())
-      .then(({ data, error }) => {
-        if (error) setError(error);
-        else setOrders(data || []);
-      })
-      .finally(() => setLoading(false));
+    Promise.all([
+      fetch('/api/admin/orders').then(r => r.json()),
+      fetch('/api/admin/returns').then(r => r.json()),
+    ]).then(([ordersRes, returnsRes]) => {
+      if (ordersRes.error) setError(ordersRes.error);
+      else setOrders(ordersRes.data || []);
+      const map = {};
+      (returnsRes.data || []).forEach(r => { map[r.order_id] = r; });
+      setReturnsByOrderId(map);
+    }).finally(() => setLoading(false));
   }, []);
 
   const handleStatusChange = async (orderId, newStatus) => {
@@ -77,6 +81,7 @@ export default function AdminOrdersPage() {
                 <th>Items</th>
                 <th>Total</th>
                 <th>Status</th>
+                <th>Return</th>
                 <th>Date</th>
                 <th>Details</th>
               </tr>
@@ -86,6 +91,13 @@ export default function AdminOrdersPage() {
                 const style = STATUS_STYLE[o.status] || STATUS_STYLE.pending;
                 const isExpanded = expanded === o.id;
                 const itemsSummary = o.items?.map(i => `${i.name?.split('|')[0].trim()} x${i.qty}`).join(', ') || '—';
+                const ret = returnsByOrderId[o.id];
+                const RETURN_STATUS_STYLE = {
+                  requested: { bg: '#fff8e1', color: '#f57f17' },
+                  approved:  { bg: '#e8f5e9', color: '#2e7d32' },
+                  rejected:  { bg: '#fce4ec', color: '#c62828' },
+                  refunded:  { bg: '#e3f2fd', color: '#1565c0' },
+                };
 
                 return (
                   <>
@@ -110,6 +122,16 @@ export default function AdminOrdersPage() {
                           ))}
                         </select>
                       </td>
+                      <td>
+                        {ret ? (
+                          <span
+                            className={styles.returnBadge}
+                            style={{ background: RETURN_STATUS_STYLE[ret.status].bg, color: RETURN_STATUS_STYLE[ret.status].color }}
+                          >
+                            {ret.status.charAt(0).toUpperCase() + ret.status.slice(1)}
+                          </span>
+                        ) : '—'}
+                      </td>
                       <td className={styles.date}>{formatDate(o.created_at)}</td>
                       <td>
                         <button className={styles.expandBtn} onClick={() => toggleExpand(o.id)}>
@@ -120,7 +142,7 @@ export default function AdminOrdersPage() {
 
                     {isExpanded && (
                       <tr key={`${o.id}-detail`} className={styles.detailRow}>
-                        <td colSpan={7}>
+                        <td colSpan={8}>
                           <div className={styles.detailGrid}>
                             {/* Items */}
                             <div className={styles.detailSection}>

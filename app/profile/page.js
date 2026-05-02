@@ -19,6 +19,13 @@ const STATUS_STYLE = {
   failed:     { bg: '#f3e5f5', color: '#6a1b9a' },
 };
 
+const RETURN_STATUS_STYLE = {
+  requested: { bg: '#fff8e1', color: '#f57f17' },
+  approved:  { bg: '#e8f5e9', color: '#2e7d32' },
+  rejected:  { bg: '#fce4ec', color: '#c62828' },
+  refunded:  { bg: '#e3f2fd', color: '#1565c0' },
+};
+
 function formatDate(iso) {
   if (!iso) return '—';
   return new Date(iso).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
@@ -30,6 +37,11 @@ export default function ProfilePage() {
   const [orders, setOrders] = useState([]);
   const [ordersLoading, setOrdersLoading] = useState(true);
   const [expanded, setExpanded] = useState(null);
+  const [returns, setReturns] = useState([]);
+  const [returnModal, setReturnModal] = useState(null); // order_id or null
+  const [reason, setReason] = useState('');
+  const [submitting, setSubmitting] = useState(false);
+  const [modalError, setModalError] = useState('');
 
   useEffect(() => {
     if (!loading && !user) router.push('/login');
@@ -37,13 +49,17 @@ export default function ProfilePage() {
 
   useEffect(() => {
     if (!user) return;
-    supabase
-      .from('orders')
-      .select('*')
-      .eq('user_id', user.id)
-      .order('created_at', { ascending: false })
-      .then(({ data }) => setOrders(data || []))
-      .finally(() => setOrdersLoading(false));
+    Promise.all([
+      supabase
+        .from('orders')
+        .select('*')
+        .eq('user_id', user.id)
+        .order('created_at', { ascending: false }),
+      fetch('/api/returns').then(r => r.json()),
+    ]).then(([{ data: ordersData }, { data: returnsData }]) => {
+      setOrders(ordersData || []);
+      setReturns(returnsData || []);
+    }).finally(() => setOrdersLoading(false));
   }, [user]);
 
   if (loading || !user) return null;
@@ -53,9 +69,51 @@ export default function ProfilePage() {
   const fullName = [firstName, lastName].filter(Boolean).join(' ') || 'User';
   const initials = [firstName[0], lastName[0]].filter(Boolean).join('').toUpperCase() || user.email[0].toUpperCase();
 
+  const returnsByOrderId = Object.fromEntries(returns.map(r => [r.order_id, r]));
+
   const handleSignOut = async () => {
     await signOut();
     router.push('/');
+  };
+
+  const openReturnModal = (e, orderId) => {
+    e.stopPropagation();
+    setReturnModal(orderId);
+    setReason('');
+    setModalError('');
+  };
+
+  const closeReturnModal = () => {
+    setReturnModal(null);
+    setReason('');
+    setModalError('');
+  };
+
+  const handleReturnSubmit = async () => {
+    if (!reason.trim()) {
+      setModalError('Please describe the reason for your return.');
+      return;
+    }
+    setSubmitting(true);
+    setModalError('');
+    try {
+      const res = await fetch('/api/returns', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ order_id: returnModal, reason }),
+      });
+      const json = await res.json();
+      if (!res.ok) {
+        setModalError(json.error || 'Failed to submit return request.');
+        return;
+      }
+      setReturns(prev => [json.data, ...prev]);
+      closeReturnModal();
+    } catch {
+      setModalError('Something went wrong. Please try again.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -99,6 +157,7 @@ export default function ProfilePage() {
                 {orders.map(order => {
                   const style = STATUS_STYLE[order.status] || STATUS_STYLE.pending;
                   const isOpen = expanded === order.id;
+                  const existingReturn = returnsByOrderId[order.id];
                   return (
                     <div key={order.id} className={styles.orderCard}>
                       <div className={styles.orderHeader} onClick={() => setExpanded(isOpen ? null : order.id)}>
@@ -111,6 +170,23 @@ export default function ProfilePage() {
                           <span className={styles.statusBadge} style={{ background: style.bg, color: style.color }}>
                             {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
                           </span>
+                          {order.status === 'delivered' && (
+                            existingReturn ? (
+                              <span
+                                className={styles.returnBadge}
+                                style={{
+                                  background: RETURN_STATUS_STYLE[existingReturn.status].bg,
+                                  color: RETURN_STATUS_STYLE[existingReturn.status].color,
+                                }}
+                              >
+                                Return: {existingReturn.status.charAt(0).toUpperCase() + existingReturn.status.slice(1)}
+                              </span>
+                            ) : (
+                              <button className={styles.returnBtn} onClick={e => openReturnModal(e, order.id)}>
+                                Return
+                              </button>
+                            )
+                          )}
                           <span className={styles.chevron}>{isOpen ? '▲' : '▼'}</span>
                         </div>
                       </div>
@@ -146,6 +222,16 @@ export default function ProfilePage() {
                               <strong>Rs. {order.amount / 100}</strong>
                             </div>
                           </div>
+
+                          {existingReturn && (
+                            <div className={styles.returnDetail}>
+                              <p className={styles.returnDetailLabel}>Return Request</p>
+                              <p className={styles.returnDetailReason}>{existingReturn.reason}</p>
+                              {existingReturn.admin_notes && (
+                                <p className={styles.returnDetailNotes}>Admin note: {existingReturn.admin_notes}</p>
+                              )}
+                            </div>
+                          )}
                         </div>
                       )}
                     </div>
@@ -157,6 +243,33 @@ export default function ProfilePage() {
 
         </div>
       </main>
+
+      {/* Return Request Modal */}
+      {returnModal && (
+        <div className={styles.modalBackdrop} onClick={closeReturnModal}>
+          <div className={styles.modalCard} onClick={e => e.stopPropagation()}>
+            <p className={styles.modalTitle}>Request a Return</p>
+            <p className={styles.modalOrderId}>Order #{returnModal.slice(0, 8).toUpperCase()}</p>
+            <textarea
+              className={styles.reasonTextarea}
+              placeholder="Describe why you'd like to return this order…"
+              value={reason}
+              onChange={e => setReason(e.target.value)}
+              rows={4}
+            />
+            {modalError && <p className={styles.modalError}>{modalError}</p>}
+            <div className={styles.modalActions}>
+              <button className={styles.cancelBtn} onClick={closeReturnModal} disabled={submitting}>
+                Cancel
+              </button>
+              <button className={styles.submitBtn} onClick={handleReturnSubmit} disabled={submitting}>
+                {submitting ? 'Submitting…' : 'Submit Request'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <Footer />
     </>
   );
