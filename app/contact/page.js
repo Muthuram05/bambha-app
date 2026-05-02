@@ -107,7 +107,7 @@ export default function ContactPage() {
                 <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1 1 18 0z"/>
                 <circle cx="12" cy="10" r="3"/>
               </svg>
-              <p className={styles.infoText}>Sun Mini Makers,<br />463, Cheranmahadevi Road,<br />Pettai, Tirunelveli - 627004.</p>
+              <p className={styles.infoText}>Sun Mini Makers,463, Cheranmahadevi Road,<br />Pettai, Tirunelveli - 627004.</p>
             </div>
 
             <div className={styles.infoItem}>

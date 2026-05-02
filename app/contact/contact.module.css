@@ -1,7 +1,7 @@
 .main {
   min-height: calc(100vh - 72px);
-  padding: 60px 24px 80px;
-  max-width: 1000px;
+  padding: 60px 0px 80px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -47,7 +47,7 @@
   padding: 12px 14px;
   border: 1px solid #d8d8d8;
   border-radius: 4px;
-  font-size: 0.9rem;
+  font-size: 18px;
   font-family: var(--font);
   color: var(--black);
   background: #fff;
@@ -126,7 +126,7 @@
 }
 
 .infoText {
-  font-size: 28px;
+  font-size: 24px;
 }
 
 .icon {
