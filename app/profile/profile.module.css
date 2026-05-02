@@ -42,14 +42,14 @@
 }
 
 .name {
-  font-size: 1.1rem;
+  font-size: 22px;
   font-weight: 700;
   color: var(--black);
   margin-bottom: 2px;
 }
 
 .email {
-  font-size: 0.875rem;
+  font-size: 20px;
   color: var(--gray);
   margin-bottom: 6px;
 }
@@ -58,7 +58,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.8rem;
+  font-size: 18px;
   color: var(--gray);
 }
 
@@ -104,7 +104,7 @@
 }
 
 .sectionTitle {
-  font-size: 1rem;
+  font-size: 24px;
   font-weight: 700;
   color: var(--black);
   margin-bottom: 20px;
@@ -137,7 +137,7 @@
   align-items: center;
   gap: 16px;
   color: var(--gray);
-  font-size: 0.9rem;
+  font-size: 24px;
 }
 
 .orderList {
