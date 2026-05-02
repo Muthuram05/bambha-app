@@ -102,3 +102,18 @@
     font-size: 1.2rem;
   }
 }
+
+@media (max-width: 768px) {
+  .hero {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  min-height: clamp(160px, 32vw, 400px);
+}
+
+.heroSkeleton {
+  width: 100%;
+  height: clamp(160px, 32vw, 400px);
+  background: #f0f0f0;
+}
+}

@@ -120,6 +120,19 @@
   gap: 8px;
 }
 
+.sortArrow {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+  transform: rotate(-90deg);
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.sortArrowOpen {
+  transform: rotate(90deg);
+}
+
 .dropdown {
   position: absolute;
   top: 100%;
@@ -228,7 +241,7 @@
 }
 
 .noReviews {
-  font-size: 0.9rem;
+  font-size: 16px;
   color: var(--gray);
   padding: 32px 0;
 }

@@ -21,13 +21,24 @@ const reasons = [
     desc: "Unlike many sweeteners that break down under heat, BamBha stays stable at high temperatures — making it perfect for baking, cooking curries, and brewing hot beverages without losing sweetness.",
     image: "/images/3.png",
   },
+  {
+    number: "04",
+    title: "100% Natural Ingredients",
+    desc: "BamBha contains no artificial sweeteners, preservatives, or additives. Just pure monk fruit extract — nature's gift for a guilt-free sweet life.",
+    image: "/images/4.png",
+  },
+  {
+    number: "05",
+    title: "Trusted by Thousands",
+    desc: "Loved by health enthusiasts, diabetics, and chefs alike. BamBha has become the go-to sugar alternative for those who refuse to compromise on taste or health.",
+    image: "/images/5.png",
+  },
 ];
 
 export default function WhyChoose() {
   return (
     <section className={styles.section}>
       <div className={styles.inner}>
-        {/* HEADER */}
         <motion.div
           className={styles.header}
           initial={{ opacity: 0, y: 20 }}
@@ -203,6 +214,27 @@ export default function WhyChoose() {
             </div>
           </div>
         </motion.div>
+        <div className={styles.list}>
+          {reasons.map((item, i) => (
+            <motion.div
+              key={item.number}
+              className={styles.row}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.6, ease: "easeOut", delay: i * 0.05 }}
+            >
+              <div className={styles.imgWrap}>
+                <img src={item.image} alt={item.title} />
+              </div>
+              <div className={styles.contentBox}>
+                <span className={styles.number}>{item.number}</span>
+                <h3 className={styles.itemTitle}>{item.title}</h3>
+                <p className={styles.desc}>{item.desc}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );

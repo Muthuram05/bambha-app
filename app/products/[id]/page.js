@@ -212,7 +212,11 @@ export default function ProductPage({ params }) {
                 <div className={styles.accordion}>
                   <button className={styles.accordionBtn} onClick={() => setAboutOpen(!aboutOpen)}>
                     <span>About this Item</span>
-                    <span>{aboutOpen ? '∧' : '∨'}</span>
+                    <img
+                      src="/left-arrow.png"
+                      alt=""
+                      className={`${styles.accordionArrow} ${aboutOpen ? styles.accordionArrowOpen : ''}`}
+                    />
                   </button>
                   {aboutOpen && (
                     <div
@@ -226,7 +230,11 @@ export default function ProductPage({ params }) {
               <div className={styles.accordion}>
                 <button className={styles.accordionBtn} onClick={() => setReturnsOpen(!returnsOpen)}>
                   <span>🔄 Returns + Exchanges</span>
-                  <span>{returnsOpen ? '∧' : '∨'}</span>
+                  <img
+                    src="/left-arrow.png"
+                    alt=""
+                    className={`${styles.accordionArrow} ${returnsOpen ? styles.accordionArrowOpen : ''}`}
+                  />
                 </button>
                 {returnsOpen && (
                   <div className={styles.accordionContent}>

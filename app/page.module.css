@@ -144,3 +144,9 @@ a.secondary {
 .mainContainer{
   padding-inline: 60px ;
 }
+
+@media (max-width: 768px) {
+  .mainContainer {
+    padding: 0 24px;
+  }
+}

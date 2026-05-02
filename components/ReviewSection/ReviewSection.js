@@ -152,7 +152,7 @@ export default function ReviewSection({ productId, avgRating, reviewCount }) {
       <div className={styles.sortRow}>
         <div className={styles.sortWrap}>
           <button className={styles.sortBtn} onClick={() => setSortOpen(!sortOpen)}>
-            {sort} <span>∨</span>
+            {sort} <img src="/left-arrow.png" alt="" className={`${styles.sortArrow} ${sortOpen ? styles.sortArrowOpen : ''}`} />
           </button>
           {sortOpen && (
             <div className={styles.dropdown}>

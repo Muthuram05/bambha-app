@@ -235,7 +235,7 @@
   align-items: center;
   padding: 14px 16px;
   background: white;
-  font-size: 0.9rem;
+  font-size: 18px;
   font-weight: 500;
   color: var(--black);
   border: none;
@@ -245,10 +245,23 @@
   background: var(--gray-light);
 }
 
+.accordionArrow {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  transform: rotate(-90deg);
+  transition: transform 0.25s ease;
+  flex-shrink: 0;
+}
+
+.accordionArrowOpen {
+  transform: rotate(90deg);
+}
+
 .accordionContent {
   padding: 16px;
   border-top: 1px solid var(--gray-border);
-  font-size: 0.875rem;
+  font-size: 16px;
   color: var(--gray);
   line-height: 1.7;
 }
