@@ -1,7 +1,6 @@
 .section {
   /* padding-block-end: 56px; */
   background: var(--white);
-  border-bottom: 1px solid #eee;
   overflow: hidden;
 }
 

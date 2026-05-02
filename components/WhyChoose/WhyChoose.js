@@ -51,7 +51,7 @@ export default function WhyChoose() {
           <div className={styles.wrapper}>
             {/* Top Left Image */}
             <div className={styles.imageTopLeft}>
-              <img src="/images/2.png" alt="food" />
+              <img src="/images/1.png" alt="food" />
             </div>
 
             {/* Top Right Circle Number */}
@@ -115,7 +115,7 @@ export default function WhyChoose() {
           <div className={styles.wrapper}>
             {/* Top Left Image */}
             <div className={styles.imageTopLeft}>
-              <img src="/images/2.png" alt="food" />
+              <img src="/images/3.png" alt="food" />
             </div>
 
             {/* Top Right Circle Number */}
@@ -152,7 +152,7 @@ export default function WhyChoose() {
 
             {/* Top Right Circle Number */}
             <div className={styles.reverseRightImage}>
-              <img src="/images/2.png" alt="food" />
+              <img src="/images/4.png" alt="food" />
             </div>
 
             {/* Content Box */}
@@ -181,7 +181,7 @@ export default function WhyChoose() {
           <div className={styles.wrapper}>
             {/* Top Left Image */}
             <div className={styles.imageTopLeft}>
-              <img src="/images/2.png" alt="food" />
+              <img src="/images/5.png" alt="food" />
             </div>
 
             {/* Top Right Circle Number */}
